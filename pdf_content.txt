@@ -1,0 +1,3552 @@
+--- src/assets/PRD's/Risk Tringulation.pdf ---
+1.  Executive  Summary  
+The  Risk  Triangulation  Engine  (RTE)  is  an  AI-powered  financial  intelligence  platform  
+that
+ 
+ingests
+ 
+multiple
+ 
+regulatory
+ 
+and
+ 
+financial
+ 
+documents
+ 
+from
+ 
+Indian
+ 
+businesses
+ 
+—
+ 
+ITR
+ 
+(Income
+ 
+Tax
+ 
+Return),
+ 
+GST
+ 
+returns
+ 
+(GSTR-1,
+ 
+GSTR-3B,
+ 
+GSTR-2B),
+ 
+MCA
+ 
+filings,
+ 
+and
+ 
+bank
+ 
+statements
+ 
+—
+ 
+and
+ 
+performs
+ 
+automated
+ 
+cross-source
+ 
+analysis
+ 
+to
+ 
+produce
+ 
+a
+ 
+unified,
+ 
+auditable
+ 
+risk
+ 
+signal
+ 
+for
+ 
+credit
+ 
+underwriting
+ 
+decisions.
+ 
+The  product  addresses  a  fundamental  gap  in  Indian  MSME  and  mid-market  lending:  
+each
+ 
+financial
+ 
+document
+ 
+tells
+ 
+a
+ 
+partial
+ 
+story,
+ 
+and
+ 
+lenders
+ 
+who
+ 
+evaluate
+ 
+documents
+ 
+in
+ 
+isolation
+ 
+miss
+ 
+systemic
+ 
+patterns
+ 
+of
+ 
+misrepresentation,
+ 
+related-party
+ 
+opacity,
+ 
+and
+ 
+cash
+ 
+flow
+ 
+manipulation.
+ 
+RTE
+ 
+solves
+ 
+this
+ 
+by
+ 
+triangulating
+ 
+across
+ 
+all
+ 
+four
+ 
+sources
+ 
+simultaneously,
+ 
+surfacing
+ 
+contradictions
+ 
+that
+ 
+no
+ 
+single
+ 
+document
+ 
+would
+ 
+reveal.
+ 
+Problem  Statement:  Indian  credit  underwriters  evaluate  ITR,  GST,  MCA,  and  bank  statements  in  isolation  —  a  fragmented  approach  that  allows  material  misrepresentations  to  go  undetected.  A  company  may  declare  ₹4.12  Cr  PAT  in  ITR  while  its  bank  statement  reveals  ₹0  in  vendor  payments,  or  claim  zero  related-party  transactions  in  AS-18  while  BSA  shows  ₹3.77  Cr  received  from  the  holding  company.  RTE  detects  these  contradictions  automatically.  
+ 
+Product  Vision:  To  become  the  definitive  pre-sanction  intelligence  layer  for  fintech  lenders  and  NBFCs  in  India  —  delivering  forensic-grade  risk  analysis  in  hours,  not  days.  
+Index  
+Items  Headline/Item  
+Architecture  Flow  Analysis  Modules  &  Feature  Specifications  RTE  —  CAM  Service  Architecture  Flow 
+Output  Excel  Format  and  Sheet  Wise  Details  
+Output  Deliverables  https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account  
+UX  Design  OneRisk  Triangulation  Engine  —  Risk  Assessment  Platform 
+Input  validations  Input  required  and  validations  
+Risk  Signals  Risk  Signal  Catalogue  (54  Checks)  Sheet  Name:  Risk  Signals  
+All  excel  sheets  required  in  output  excel  Output  Deliverables  
+OneRisk  UI  Design  elements  User  Experience  Requirements  
+Data  Sources  utilised  (scope  wise  bifurcation)  
+Integrations  &  Data  Sources  
+Document/Terminologies  Description  Glossary  
+API  key  mapping  against  each  document  item  
+Appendix  B:  Developer  Reference  —  API  Response  Field  Mapping  
+Metrics  Success  Metrics  &  Acceptance  Criteria  
+Assumptions  Assumptions  
+Testing  Criterias  Testing  Layers  
+API  Details  (ITR/MCA/GST)  https://docs.google.com/document/d/1F8pG9M0BRm87mQPPjMwZRS3MvaN70AeEH8rFaubQRos/edit?tab=t.0#heading=h.jqmq6k45mtdaConnect  your  Google  account -mca  I/P  needed  -  CIN   https://docs.google.com/document/d/1kfQPxpBu4d3FpyoK0JrBE3GlM4o92pfXUGtmFuNmwj4/edit?ouid=105010493297659834596&usp=docs_home&ths=trueConnect  your  Google  account -Only  use  ITR/GST   For  ITR  -  I/P  needed  (either)  -PDF  Upload  -Username  and  password  with  validation  -Username  and  password  using  link   For  GST  -  I/P  needed  (fixed)  -OTP  using  link  approach  -JSON  upload  approach  - https://docs.google.com/document/d/1akc-8DXev4z1YuqigCTGdoRc6SzTKCi8emluj5iwMtA/edit?usp=sharingConnect  your  Google  account  
+ Analysis  type:  Analyse  GST  returns  Period  of  assessment  :  Same  as  Bank  statement  period  (Always  take  of  1  year  even  if  bank  statement  is  less  than  a  year)  
+2.   
+Product
+ 
+Scope
+ 
+&
+ 
+Boundaries
+ 
+2.1  In  Scope  
+●  Automated  ingestion  and  parsing  of  ITR-6  /  ITR-4  /  ITR-3/ITR-5  (PDF  format  from  
+Income
+ 
+Tax
+ 
+Portal).
+ 
+This
+ 
+will
+ 
+be
+ 
+ingested
+ 
+through
+ 
+vendor
+ 
+api.
+ 
+(Single
+ 
+year)
+ 
+(Input
+ 
+will
+ 
+be
+ 
+PDF/Credentials)
+ ●  Automated  ingestion  of  GSTR-3B  (filed  returns  PDF)  and  GSTR-2B  (portal  Excel  
+export)
+ 
+for
+ 
+up
+ 
+to
+ 
+36
+ 
+months.
+ 
+This
+ 
+will
+ 
+be
+ 
+ingested
+ 
+through
+ 
+vendor
+ 
+api.
+ 
+(Single
+ 
+year)
+ 
+ 
+(Input
+ 
+will
+ 
+be
+ 
+credentials/JSON)
+ ●  Automated  ingestion  of  MCA  filings:  AOC-4  (financial  statements),  MGT-7  
+(annual
+ 
+return),
+ 
+charge
+ 
+documents,
+ 
+director
+ 
+data.
+ 
+This
+ 
+will
+ 
+be
+ 
+ingested
+ 
+through
+ 
+vendor
+ 
+api.
+ 
+ 
+(Input
+ 
+will
+ 
+be
+ 
+CIN)
+ ●  Automated  ingestion  of  bank  statements.(standalone  risk  signals  from  each  
+document).
+ 
+These
+ 
+documents
+ 
+will
+ 
+be
+ 
+fetched
+ 
+via
+ 
+AA
+ 
+or
+ 
+API.
+ 
+These
+ 
+can
+ 
+include
+ 
+scanned
+ 
+statements/e-statements.
+ 
+-Single
+ 
+Statement
+ 
+-Multi
+ 
+Statement
+ 
+-Single
+ 
+Account
+ 
+-Multi
+ 
+Account
+ 
+(Input
+ 
+will
+ 
+be
+ 
+bank
+ 
+statements)
+ ●  Cross-document  triangulation:  52  risk  signals  across  Integrity,  Compliance,  Credit  
+Behaviour,
+ 
+and
+ 
+Business
+ 
+Risk
+ 
+categories
+ ●  Automated  CAM  (Credit  Assessment  Memo)  generation  with  structured  output  
+  
+2.2  Out  of  Scope  (v1.0)  
+●  Credit  bureau  integration  (CIBIL,  Experian)  —  v2.0  roadmap  ●  Financial  Statement  extraction  and  risk  analysis  -  v2.0  roadmap  ●  Multi  year  ITR  trend  analysis  ●  Multi  year  MCA  trend  analysis  ●  Multi  year  GST  trend  analysis  ●  Sector-specific  risk  models  (manufacturing,  pharma,  agri)  —  v1.5  ●  Personal  credit  assessment  (individual  borrowers)  —  separate  product  line.   
+  
+3.  Target  Users  &  Personas  
+Persona  Role  Primary  Need  Pain  Point  Solved  
+Credit  Underwriter  Reviews  loan  applications  for  NBFCs  /  banks  
+Validate  borrower  financials  quickly  and  reliably  
+Manually  cross-checking  4  documents  takes  2–3  days;  RTE  does  it  in  minutes  
+Credit  Risk  Analyst  Builds  risk  models  and  sets  underwriting  policies  
+Identify  systemic  fraud  patterns  across  portfolio  
+Inconsistencies  like  AS-18  zero  vs  BSA  ₹3.77  Cr  RP  transfers  are  invisible  without  triangulation  
+  
+4.  Analysis  Modules  &  Feature  Specifications  
+The  RTE  consists  of  four  interconnected  analysis  modules.  Each  module  
+produces
+ 
+standalone
+ 
+findings
+ 
+that
+ 
+feed
+ 
+into
+ 
+the
+ 
+final
+ 
+Triangulation
+ 
+Engine.
+ 
+4.1.  Document  Ingestion  and  Parsing  
+The  JSON  response  received  as  output  for  scope  1  documents  needs  to  be  
+parsed
+ 
+before
+ 
+undergoing
+ 
+extraction.
+ 
+      
+ 
+4.2.  Analysis  and  Storage  The  specific  parameters  defined  for  each  document  (reference: https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account )  need  to  be  extracted,  deviations  calculated  and  stored  on  each  level.  
+Scenario  specific  example:  
+For
+ 
+XYZ
+ 
+company,
+ 
+we
+ 
+are
+ 
+considering
+ 
+performing
+ 
+risk
+ 
+triangulation
+ 
+across
+ 
+the
+ 
+following
+ 
+data
+ 
+-ITR  
+-GST
+ 
+-MCA
+ 
+filing
+ 
+ 
+-Bank
+ 
+Statements
+ 
+We  take  one  primary  signal  -  Revenue  
+ITR  Revenue-  2Cr  
+GST
+ 
+Revenue
+ 
+-
+ 
+1.5Cr
+ 
+MCA
+ 
+Revenue
+ 
+-
+ 
+3.5Cr
+ 
+Bank
+ 
+Statements
+ 
+-
+ 
+95
+ 
+lakhs
+    
+ 
+Deviation  across  parameters  for  signal  in  consideration  
+-ITR
+ 
+vs
+ 
+GST
+ 
+-ITR
+ 
+vs
+ 
+MCA
+ 
+-ITR
+ 
+vs
+ 
+Bank
+ 
+Statements
+ 
+-GST
+ 
+vs
+ 
+MCA
+ 
+-GST
+ 
+vs
+ 
+Bank
+ 
+Statements
+ 
+-MCA
+ 
+vs
+ 
+Bank
+ 
+Statements
+ 
+The  parameters  to  be  stored  
+-Case
+ 
+Name
+ 
+-Assessment
+ 
+Period
+ 
+-
+ 
+Will
+ 
+be
+ 
+same
+ 
+across
+ 
+documents,
+ 
+if
+ 
+not
+ 
+take
+ 
+the
+ 
+most
+ 
+recent
+ 
+period
+ 
+of
+ 
+the
+ 
+document
+ 
+-Industry
+ 
+-
+ 
+MCA/ITR
+ 
+-Business
+ 
+Activity
+ 
+-
+ 
+MCA/ITR
+ 
+-Revenue
+ 
+values
+ 
+across
+ 
+documents
+ 
+-Deviation
+ 
+values
+ 
+across
+ 
+documents
+ 
+4.3.  AI  Inference  and  Triangulation  There  are  6  sheets  in   (reference: https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account )  where  AI  Inference  comes  into  picture  
+-Overall
+ 
+Summary
+ 
+-Financial
+ 
+Analysis
+ 
+-ITR
+ 
+Analysis
+ 
+-MCA
+ 
+Analysis
+ 
+-Major
+ 
+Suppliers
+ 
+and
+ 
+Customers
+ 
+-Triangulation
+ 
+-Macro
+ 
+Factors
+ 
+All  AI  summary  is  generated  based  on  underlying  financial  ratios  and  values  specific  to  
+the
+ 
+document.
+ 
+In
+ 
+Triangulation
+ 
+sheet
+ 
+the
+ 
+AI
+ 
+Inference
+ 
+will
+ 
+be
+ 
+based
+ 
+on
+ 
+cross
+ 
+document
+ 
+analysis
+ 
+Overall  Flow  Inference:  
+RTE  —  CAM  Service  Architecture  Flow 
+4.4.  CAM  Report  Generation  
+The  AI  inference  output  for  each  stage/sheet  will  be  passed  as  a  JSON  response  which  
+needs
+ 
+to
+ 
+be
+ 
+mapped
+ 
+to
+ 
+each
+ 
+corresponding
+ 
+sheet
+ 
+in
+ 
+the
+ 
+defined
+ 
+section
+ 
+before
+ 
+creating
+ 
+the
+ 
+overall
+ 
+CAM
+ 
+report
+ 
+(XLSX/PDF)
+ 
+  
+5.Output  Deliverables  
+RTE  produces  a  structured  Credit  Assessment  Memo  (CAM)  comprising  15  
+standardised
+ 
+sections.
+ 
+The
+ 
+CAM
+ 
+is
+ 
+the
+ 
+primary
+ 
+output
+ 
+consumed
+ 
+by
+ underwriters.  (The  order  of  sheet  arrangement  is  as  per https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account )  
+CAM  Section  Contents  
+Company  Information  Legal  name,  CIN,  PAN,  GSTIN,  incorporation  date,  status,  industry,  address,  business  description,  website  
+Director  Details  Current  and  past  directors  with  DIN,  appointment  dates,  cessation  dates,  key  risk  flags,  other  directorships  and  associated  charges  
+Open  Charges  &  Sequence  
+All  MCA-registered  charges  with  holder,  date,  amount,  property  secured,  and  latest  event  
+Financial  Analysis  Balance  sheet  summary,  P&L  summary,  financial  ratios  —  all  with  YoY  comparison,  inference,  and  source  citation  
+Network  Overview  Netscan  (Out  of  scope  1)  
+Peer  Benchmarking  MCA  
+GST  Returns   GSTR-1  vs  GSTR-3B  vs  GSTR-2A  reconciliation;  business  breakup  by  supply  type;  ITC  summary  
+Major  Suppliers  &  Customers  
+Top  10  suppliers  and  top  10  customers  by  taxable  value  with  invoice  counts  
+ITR  Analysis  Line-by-line  ITR  extraction  with  underwriter  notes;  risk  assessment  metrics  summary  
+MCA  Analysis  13  MCA-specific  risk  parameters  with  observed  values,  rationale,  and  source  
+Triangulation  26-row  cross-source  comparison  across  7  financial  categories;  ITR  vs  GST  vs  BSA  vs  MCA  for  each  parameter  
+Court  and  AML  CrimeCheck  -  Out  of  scope  1  
+Labour  Stats  EPFO  -  Out  of  scope  1  
+Bank  Statement  CAM  (Comprises  of  4  separate  sheets)  
+Account  details,  consolidated  monthly  CAM  (credits/debits/balances),  fraud  signals,  irregular  transactions  detail  
+Risk  Signals  Summary  
+52  risk  checks  with  pass/fail  status,  risk  category,  and  source  document;  overall  grade  and  segment-level  breakdown  
+6.User  Experience  Requirements  
+6.1  Case  Creation  &  Document  Upload  
+●  Single  case  creation  form:  borrower  name,  PAN,  GSTIN,  loan  purpose,  
+requested
+ 
+amount
+ ●  Drag-and-drop  multi-file  upload  with  format  validation  (PDF,  XLSX,  JSON  
+accepted)
+ ●  Document  type  auto-detection:  system  identifies  ITR  vs  GST  vs  BSA  vs  MCA  
+from
+ 
+content
+ ●  Upload  progress  tracking  with  per-file  status  indicators  ●  Duplicate  file  warning:  alert  if  same  document  period  already  uploaded  for  this  
+case
+ 
+6.2  Analysis  Dashboard  
+●  Real-time  processing  status  with  estimated  completion  time  ●  Segment-level  risk  breakdown:  Integrity  /  Compliance  /  Credit  Behaviour  /  
+Business
+ 
+Risk
+ 
+with
+ 
+individual
+ 
+scores
+ ●  One-click  drill-down  from  any  flag  to  source  document  evidence  
+6.3  CAM  Viewer  
+●  Interactive  CAM  with  collapsible  sections  and  in-page  search  ●  Side-by-side  triangulation  view:  show  all  four  sources  for  any  financial  parameter  
+on
+ 
+a
+ 
+single
+ 
+screen
+ ●  Underwriter  annotation:  ability  to  add  notes  to  any  flag  (accepted  risk,  
+explanation
+ 
+received,
+ 
+pre-condition
+ 
+set)
+ ●  Flag  override:  senior  underwriter  can  override  any  flag  with  mandatory  reasoning  
+—
+ 
+logged
+ 
+immutably
+ ●  Export  options:  full  CAM  as  Excel  (structured),  PDF  (formatted),  JSON  (API)  
+6.4  Notification  &  Workflow  
+●  Email  notification/Webhook  when  analysis  is  complete  with  risk  grade  summary  ●  Escalation  routing:  cases  above  0.50  risk  grade  automatically  routed  to  senior  
+underwriter
+ 
+queue
+ ●  Pre-condition  checklist:  automatically  generate  list  of  documents/explanations  
+required
+ 
+based
+ 
+on
+ 
+flags
+ 
+raised
+ 
+ 
+7.Risk  Signal  Catalogue  (54  Checks)  
+Below  is  the  complete  risk  signal  registry.  Each  signal  is  categorised,  described,  
+and
+ 
+mapped
+ 
+to
+ 
+its
+ 
+source
+ 
+data.
+ 
+This
+ 
+data
+ 
+7.1  Integrity  Signals  (24  checks)  
+#  Signal  Detection  Logic  Source  
+1  Criminal  cases  —  Primary  Firm  (Phase  2)  
+Active  severe  criminal  cases  against  the  entity  
+Criminal  Records  DB  
+2  Criminal  cases  —  Subsidiary  (Phase  2)  
+Active  cases  against  majority-owned  subsidiaries  
+Criminal  Records  DB  
+3  Criminal  cases  —  Directors  (Phase  2)  
+Active  cases  against  current  directors  or  promoters  
+Criminal  Records  DB  
+4  Criminal  cases  —  Network(Phase  2)  
+Cases  against  immediate  network  companies  
+Criminal  Records  DB  
+5  Suspected  Shell  Company  (Phase  2)  
+No  real  economic  activity;  matches  shell  company  patterns  
+MCA  +  GST  
+6  Suspected  Shell  Network  (Phase  2)  
+Promoter  DIN  linked  to  2+  shell  companies  
+MCA  Directorships  
+7  Blacklists  /  Sanctions  (Phase  2)  
+Listed  on  any  government-released  blacklist  
+Regulatory  DBs  
+8  Web-presence  Authenticity   
+Website  non-compliant  with  declared  MCC   Risk  Level  =  ‘High’  if  detected  from  webscan  api  response.  
+Web  Scan  
+9  Adverse  Media  (Phase  2)  
+Negative  mentions  in  digital  publications  
+Media  Scan  
+10  Document  Tampering  Tampering  of  bank  statements/  Balance  Recon  Failure  detected.  
+BSA  
+11  Balance  Manipulation  Current  logic  on  pass  through  behaviour  to  be  implemented.   
+-Amounts  above  >=1L  credited  -debited  in  0-2  day  window  (>=80%  amount)  
+●  >=  3  source  transactions  displaying  this  pattern  
+BSA  
+12  Suspicious  Cash  Transactions  
+Current  logic  on  pass  through  behaviour  to  be  implemented   Checks  if  cash  credit  transactions  on  the  same  
+BSA  
+day  collectively  exceeds  ₹50000   
+13  Suspicious  Digital  Transactions  
+Out-of-limit  digital  transaction  activity  (RTGS/UPI)   Checks  if  RTGS  Transactions  are  <  INR  200000   Checks  if  UPI  Transactions  exceed  daily  limit  of  INR  100000   
+BSA  
+14  BSA  Inconsistencies  Balance  reconciliation  fails  at  >2  transactions  
+BSA  
+15  Suspected  Capital  Rotation  
+Same  counterparty  on  both  credit  and  debit  side   
+BSA  
+(Your  top  creditor  is  your  top  debitor)  
+16  GST  Under  Cancellation  /  Suspension  (Phase  2)  
+GSTIN  flagged  for  compliance  issues  
+GST  +  BSA  
+17  Legal  Name  Mismatch  ITR/MCA  legal  name  ≠  bank  account  holder  name  
+BSA  +  GST  
+18  Insider  Transaction  Alert  Fund  transfers  to  promoter-linked  accounts  detected   The  director  detected  from  MCA  is  detected  as  a  receiver  in  the  bank  statement  narration.  
+BSA  +  ITR/MCA  
+19  Vendor  Overlap  Alert  Top  supplier  also  appears  as  top  buyer  (circular  sales)   Related  to  vendor  
+GST  +  BSA  
+authenticity  triangulation  signal  being  detected  (GST  value  is  fetched  after  criteria  is  confirmed)  
+20  Related  Party  Transactions  
+RP  transactions  in  BSA  not  declared  in  ITR  schedule  under  borrowings   Related  to  related  party  triangulation  signal  being  detected  
+ITR  +  BSA  
+21  Undisclosed  Capital  Inflows  
+Non-trade  BSA  credits  not  reconcilable  to  any  source  declared  in  ITR  (Directors/Promoters)  
+ITR  +  BSA  
+22  Missing  Auditor  Fee  No  BSA  debit  matching  declared  audit  fee  amount  and  auditor  name  declared  in  ITR.  
+ITR  +  BSA  
+23  Director  Exits  >  30%  director  churn  in  last  12  months  
+MCA  
+24  Name  Mismatch  If  any  mismatch  detected  between  company  name  across  any  document  with  Bank  Statement.  ITR/MCA/GST  -  BSA  
+Added  Document  Sources  
+  
+7.2  Compliance  Signals  (5  checks)  
+#  Signal  Detection  Logic  Source  
+24  E-Invoice  Non-Compliance  (Phase  2)  
+E-invoice  mandate  applicable  but  not  followed  
+GST  
+25  EPFO  Non-Compliance  (Phase  2)  
+Missed  EPFO  filings  in  past  3  months  
+EPFO   
+26  GST  Non-Active  Status  (Phase  2)  
+GSTIN  status  is  inactive  or  surrendered  
+GST  
+27  Address  Mismatch  Alert  GST  address  vs  bank  account  address  discrepancy  
+BSA  +  GST  
+28  Non  Compliant  Directors  Check  if  director(s)  DIN  is  active  and  compliant.   STATUS  =  ‘SUSPENDED’  
+MCA  
+  
+7.3  Credit  Behaviour  Signals  (4  checks)  
+#  Signal  Detection  Logic  Source  
+29  Irregular  EMI  Transactions  
+Current  logic  on  BSA  to  be  implemented   EMI  Transactions  that  don't  happen  on  the  same  day  of  
+BSA  
+every  month   
+30  EMI  Bounce  Current  logic  on  BSA  to  be  implemented   Bounce/Return  Transactions  associated  with  the  EMI  Obligation  
+BSA  
+31  Inward  Cheque  Bounce  Current  logic  on  BSA  to  be  implemented   Checks  for  inward  cheque  bounces  category  detected  in  the  statement  
+BSA  
+32  Outward  Cheque  Bounce  
+Current  logic  on  BSA  to  be  implemented   Checks  for  outward  cheque  bounces  category  in  the  statement  
+BSA  
+  
+7.4  Business  Risk  Signals  (20  checks)  
+#  Signal  Detection  Logic  Source  
+33  Labour  Count  Change  (Phase  2)  
+EPFO  headcount  change  >  30%  in  3  months  (use  current  headcount  logic  implemented  for  employer  risk  check)  
+EPFO  
+34  GST  ITC  Risk  (phase  2  deliverable)  
+ITC  from  vendors  with  suspended  GST  or  chronic  late  filing  
+GST  
+35  Industry  Mismatch  (phase  2  deliverable)  
+  
+Vendor  purchases  atypical  for  declared  business  category  
+GST  
+36  Stock  Clearing  (phase  2  deliverable)  
+  
+Manufacturing  entity  selling  without  procuring  for  3+  months  
+BSA  +  GST  
+37  Sales  Reversal  Credit  notes  >  5%  of  gross  sales  value  in  period  
+GST  
+38  DSCR  Below  Benchmark  (phase  2  deliverable)  
+  
+Debt  Service  Coverage  Ratio  below  1.25x  
+BSA  
+39  Revenue  Reconciliation  Gap  
+Revenue  in  1+  documents  deviates  >  20%  from  others  
+(any  one)  ITR-BSA  >20%  ITR-MCA  >  20%  BSA-MCA  >  20%  
+ITR  +  BSA  +MCA  
+40  Payroll  Expense  Gaps  Employee  expense  in  1+  documents  deviates  >  20%  from  others  
+(any  one)  ITR-BSA  >20%  ITR-MCA  >  20%  BSA-MCA  >  20%  
+ITR  +  BSA  +MCA  
+41  Informal  Borrowings  EMI-like  outflows  to  non-financial  institutions  for  2+  months  (Probable  emi)  This  becomes  a  trigger  when  borrowings  not  declared  in  ITR-MCA  but  emi’s  flow  detected  in  BSA.  
+ITR  +  BSA+MCA  
+42  ITC  Concentration  Risk  (Phase  2  deliverable)  
+Single  related-party  vendor  >  60%  of  total  ITC  
+GST  
+43  B2C  Sales  Anomaly  top  buyer  for  B2B  entity  is  from  a  consumer  rather  than  a  company  
+GST  
+44  Time-Barred  ITC  (Sec  16(4))  (Phase  2  deliverable)  
+Ineligible  ITC  appearing  in  3+  consecutive  months  
+GST  
+45  Opaque  Vendor  Billing  Mechanically  identical  invoice  value  from  unidentifiable  vendor.   If  the  vendor  detected  in  GST  (supplier/buyer),  the  name  is  not  of  a  company/llp  but  of  an  individual   Check:  if  name  not  ending  with  pvt.limited,llp  etc.  
+GST  
+46  RCM  Liability  Surge  Reverse  charge  on  imports  growing  >  100%  in  4  months   Overview  →  Business  breakup  →  Purchases  →  Reverse  charge  
+GST  
+47  Account  Dormancy  Account  inactive  >  30%  of  statement  period   Check  if  dormant  days  >  30%  of  statement  period  
+BSA  
+48  Utility  Expense  Missing  Electricity/fuel  missing  in  BSA  or  >  50%  below  ITR  declared  
+ITR  +  BSA  
+49  NWC  Intensity  Rising  (Phase  2)  
+Working  capital  requirement  growing  faster  than  revenue    
+MCA  +  ITR  
+50  Subpar  Revenue  growth  Revenue  growth  of  company  lower  than  5%  or  more  than  benchmark  for  the  industry  
+MCA  Fillings  
+51  Subpar  ROE  ROE  for  the  company  is  10%  or  more  lower  than  industry  benchmark  
+MCA  Fillings  
+52  Adverse  Macro-factors  Macro  commentary  on  industry  is  negative  
+IDfy  Services  
+  
+7.5  Account  Conduct  Signals  (3  checks)  
+#  Signal  Detection  Logic  Source  
+53  Negative  Balance  Detected  
+Account  balance  goes  negative  at  any  point  in  period  
+BSA  
+54  Unexpected  Late  Influx  Large  unexplained  credit  in  last  15  days  of  statement  
+BSA  
+8.Integrations  &  Data  Sources  
+Integration  Data  Type  Use  in  RTE  v1.0  Scope  
+Income  Tax  Portal  ITR  PDF  /  XML  Revenue,  expenses,  tax,  related  parties  
+Vendor  API  -  pass  credentials  
+GST  Portal  GSTR-3B  PDF,  GSTR-2B  XLSX  
+Revenue,  ITC,  vendor  data,  compliance  
+Vendor  API  -  pass  credentials  
+Bank  Statement  PDF/JSON  
+E-statement/Scanned  
+Cash  flows,  fraud  signals,  CAM  
+Manual  upload/API/AA  
+EPFO  Establishment  Data  
+Headcount,  challan  history  
+Payroll  validation,  employee  count  
+Employer  Name  given  as  input  during  bank  statement  analysis  
+Criminal  Records  DB  
+FIR,  court,  tribunal  records  
+Director  /  entity  criminal  background  
+API  (IDfy)  
+MCA  Filings  Company  financials  and  details  
+Compliance  and  liquidity  health  check  
+Vendor  API  -  Pass  CIN  and  Company  Name  
+Financial  Statements  
+P  &  L,  BS  Financial  Ratios  and  Auditor  Notes  
+v2.0  roadmap  
+Credit  Bureau  (CIBIL/Experian)  
+Credit  history,  CMR  rating  
+Existing  debt  obligations  
+v2.0  roadmap  
+  
+8.  Glossary  
+Term  Definition  
+GSTR-3B  Monthly  GST  return  filed  by  a  registered  taxpayer  declaring  outward  supplies,  ITC,  and  tax  payments  
+GSTR-2B  Auto-generated  input  tax  credit  statement  for  the  buyer,  based  on  supplier  GSTR-1  filings  
+GSTR-1  Monthly/quarterly  return  filed  by  a  supplier  declaring  outward  supplies  (invoices  issued)  
+ITR  Income  Tax  Return  form  for  companies  other  than  those  claiming  exemption  under  Section  11  
+AOC-4  MCA  form  for  filing  financial  statements  (balance  sheet,  P&L,  cash  flow)  with  the  Registrar  of  Companies  
+ITC  Input  Tax  Credit  —  GST  paid  on  inputs,  deductible  against  output  tax  liability  
+RCM  Reverse  Charge  Mechanism  —  GST  payable  by  the  recipient,  not  the  supplier  (applies  to  certain  services  like  imports)  
+AS-18  Accounting  Standard  18  —  Related  Party  Disclosures  (mandatory  for  companies  filing  with  MCA)  
+DPO  Days  Payable  Outstanding  —  average  number  of  days  a  company  takes  to  pay  its  vendors  
+DSO  Days  Sales  Outstanding  —  average  number  of  days  to  collect  payment  after  a  sale  is  made  
+DSCR  Debt  Service  Coverage  Ratio  —  EBITDA  /  (Interest  +  Principal)  —  measures  ability  to  service  debt  
+CAM  Credit  Assessment  Memo  —  structured  document  summarising  all  financial  and  risk  analysis  for  a  credit  decision  
+BSA  Bank  Statement  Analysis  —  systematic  review  and  categorisation  of  bank  transactions  
+NPA  Non-Performing  Asset  —  loan  where  principal  or  interest  is  overdue  by  90+  days  
+Section  16(4)  
+Provision  of  CGST  Act  that  bars  ITC  on  invoices  not  filed  within  the  statutory  time  limit  
+Rule  37A  (GST)  
+Requires  reversal  of  ITC  if  vendor  has  not  paid  corresponding  tax  within  180  days  of  invoice  
+Triangulation  
+Cross-validation  of  the  same  financial  parameter  (e.g.,  revenue)  across  ITR,  GST,  MCA,  and  BSA  to  detect  inconsistencies  
+  
+9.Appendix  B:  Developer  Reference  —  API  Response  Field  Mapping  
+This  appendix  provides  the  definitive  field-level  mapping  for  every  data  parameter  
+populated
+ 
+in
+ 
+the
+ 
+Risk
+ 
+Triangulation
+ 
+CAM
+ 
+report.
+ 
+Each
+ 
+parameter
+ 
+is
+ 
+traced
+ 
+to
+ 
+its
+ 
+exact
+ 
+source:
+ 
+the
+ 
+API
+ 
+response
+ 
+document,
+ 
+the
+ 
+specific
+ 
+sheet,
+ 
+and
+ 
+the
+ 
+field
+ 
+name
+ 
+or
+ 
+row
+ 
+identifier
+ 
+(Sl.
+ 
+No.
+ 
+where
+ 
+applicable).
+ 
+Developers
+ 
+must
+ 
+use
+ 
+these
+ 
+references
+ 
+to
+ 
+implement
+ 
+parsers
+ 
+that
+ 
+correctly
+ 
+read
+ 
+each
+ 
+value
+ 
+from
+ 
+the
+ 
+structured
+ 
+API
+ 
+outputs.
+ 
+Certain  CAM  fields  will  be  present  in  just  ITR/MCA/GST,  if  that  check  is  not  chosen  by  
+the
+ 
+user
+ 
+that
+ 
+field
+ 
+will
+ 
+not
+ 
+be
+ 
+populated.
+ 
+(All  this  data  need  not  be  populated  in  CAM  Excel  as  values  (referenced  by https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account ),  but  they  need  to  be  extracted  and  passed  to  the  AI  Orchestration  layer  to  create  concise  
+credit
+ 
+risk
+ 
+inference
+ 
+and
+ 
+AI
+ 
+Summary.
+ 
+B.1  Company  Information  —  Data  Source  Mapping  
+(For  ITR  -  5  MCA  details  will  be  unavailable,  so  the  CAM  fields  needs  to  be  scraped  
+from
+ 
+ITR)
+ 
+If  for  any  case  user  does  not  choose  MCA  in  triangulation,  from  the  existing  services  
+chosen
+ 
+company
+ 
+details
+ 
+will
+ 
+be
+ 
+populated
+ 
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Sl.  No.  in  Source  
+Legal  Name  (ITR  and  MCA  available)  
+MCA  Probe  →  About  the  Company  
+Column:  LEGAL  NAME  
+CIN  (ITR  and  MCA  available)  
+MCA  Probe  →  About  the  Company  
+Column:  CIN/LLPIN  
+PAN  (ITR  and  MCA  available)  
+MCA  Probe  →  About  the  Company  
+Column:  PAN  
+Date  of  Incorporation  MCA  Probe  →  About  the  Company  
+Column:  DATE  OF  INCORPORATION  
+Company  Status  MCA  Probe  →  About  the  Company  
+Column:  STATUS  /  ACTIVE  COMPLIANCE  
+Type  of  Entity  (ITR  and  MCA  available)  
+MCA  Probe  →  About  the  Company  
+Column:  CORPORATE  TYPE  (e.g.  Private  Limited  Non-Government)  
+Listing  Status  MCA  Probe  →  About  the  Company  
+Column:  LISTED  (Y/N)  /  Listing  information  
+Date  of  Last  AGM  MCA  Probe  →  About  the  Company  
+Column:  DATE  OF  LAST  AGM  
+Industry  /  Category  MCA  Probe  →  About  the  Company  
+Columns:  INDUSTRY,  BROAD  INDUSTRY  CATEGORY  
+Business  Activity  MCA  Probe  →  Annexure  -  Financial  Params  
+Row:  Business  Activity  Code,  %  of  Turnover  
+Business  Description  MCA  Probe  →  About  the  Company  
+Columns:  DESCRIPTION  OF  MAIN  BUSINESS  
+Registered  Address  (ITR  and  MCA  available)  
+MCA  Probe  →  About  the  Company  
+Column:  REGISTERED  ADDRESS  
+Business  Address  MCA  Probe  →  About  the  Company  
+Column:  BUSINESS  ADDRESS  
+Website  MCA  Probe  →  About  the  Company  
+Column:  WEBSITE(S)  
+Email  MCA  Probe  →  About  the  Company  
+Column:  EMAIL(S)  
+Bank  Accounts  ITR  →  General  Information  
+Section:  Information  of  all  Bank  Accounts  —  Account  Number,  Bank  Name,  IFS  Code  
+Authorised  Capital  MCA  Probe  →  About  the  Company  
+Column:  AUTHORISED  CAPITAL  (Crore)  
+Paid-Up  Capital  MCA  Probe  →  About  the  Company  
+Column:  PAID  UP  CAPITAL  (Crore)  
+Promoter  Shareholding  MCA  Probe  →  Shareholding  More  Than  5%  
+Category:  PROMOTERS  —  Share  Holder,  Shareholding  %,  Amount  
+Public  Shareholding  MCA  Probe  →  Shareholding  More  Than  5%  
+Category:  Share  Holder,  Shareholding  %  
+Sum  of  Open  Charges  MCA  Probe  →  About  the  Company  
+Column:  SUM  OF  CHARGES  
+GSTIN  Details  MCA  Probe  →  Annexure  -  GST  
+Columns:  GSTIN,  GSTIN  STATUS,  DATE  OF  REGISTRATION,  Centre/State  Jurisdiction,  Return  filings  
+GSTIN  (cross-ref)  ITR  →  General  Information  
+Section:  GST  Gross  Receipt  —  GSTIN,  Annual  Value  
+MSME  Payment  Events  MCA  Probe  →  MSME  Supplier  Payment  Delays  
+All  rows:  Supplier  Name,  PAN,  Total  Amount  Due,  Period  
+Related  Party  Transactions  
+MCA  Probe  →  About  the  Company  
+Row:  AS-18  Gross  value  of  Related  Party  transactions  
+Corporate  Highlights  /  Events  
+MCA  Probe  →  About  the  Company  
+Section:  Highlights  /  Recent  Events  
+  
+B.2  Director  Details  —  Data  Source  Mapping  
+  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Sl.  No.  in  Source  
+Director  Name  MCA  Probe  →  Directors  Column:  DIRECTOR  NAME  
+DIN  MCA  Probe  →  Directors  Column:  DIN  
+DIN  (cross-ref)  ITR  →  General  Information  
+Section:  Details  of  Directors  —  DIN  
+Designation  MCA  Probe  →  Directors  Column:  PRESENT  DESIGNATION  
+Status  (Active  /  Disqualified)  
+MCA  Probe  →  Directors  Column:  STATUS  
+Appointment  Date  MCA  Probe  →  Directors  Column:  APPOINTMENT  DATE  
+Cessation  Date  MCA  Probe  →  Directors  Column:  CESSATION  DATE  
+Date  of  Birth  MCA  Probe  →  Directors  Column:  DATE  OF  BIRTH  
+Nationality  MCA  Probe  →  Directors  Column:  NATIONALITY  
+Association  History  MCA  Probe  →  Director  -  Association  History  
+All  rows:  DIN,  company  associations,  appointment/cessation  dates  
+Other  Directorships  MCA  Probe  →  Other  Directorships  
+Columns:  Corporate  Name,  CIN,  Corporate  Type,  Date  of  Incorporation,  Sum  Of  Charges,  Cessation  Date  
+Key  Risk  Flag  (Disq.  /  Charge)  
+MCA  Probe  →  Directors  Column:  STATUS  (Disqualified);  cross-ref  Open  Charges  Sequence  —  HOLDER  NAME  
+Director  Designation  (ITR)  ITR  →  General  Information  
+Section:  Details  of  Directors  —  Name,  Designation  
+  
+B.3  Open  Charges  &  Sequence  —  Data  Source  Mapping  
+  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Sl.  No.  in  Source  
+Charge  ID  /  Serial  No.  MCA  Probe  →  Open  Charges  Sequence  
+Column:  CHARGE  ID  /  SERIAL  NUMBER  
+Status  MCA  Probe  →  Open  Charges  Sequence  
+Column:  STATUS  (Open  /  Closed)  
+Filing  Date  MCA  Probe  →  Open  Charges  Sequence  
+Column:  FILING  DATE  
+Charge  Holder  Name  MCA  Probe  →  Open  Charges  Sequence  
+Column:  HOLDER  NAME  
+Charge  Amount  MCA  Probe  →  Open  Charges  Sequence  
+Column:  CHARGE  AMOUNT  
+Property  Type  MCA  Probe  →  Open  Charges  Sequence  
+Column:  PROPERTY  TYPE  
+Property  Particulars  MCA  Probe  →  Open  Charges  Sequence  
+Column:  PROPERTY  PARTICULARS  
+Rate  of  Interest  MCA  Probe  →  Open  Charges  Sequence  
+Column:  RATE  OF  INTEREST  
+Number  of  Holders  MCA  Probe  →  Open  Charges  Sequence  
+Columns:  NUMBER  OF  HOLDERS,  JOINT  HOLDING,  CONSORTIUM  HOLDING  
+Latest  Event  Type  MCA  Probe  →  Latest  Event  on  Open  Charges  
+Column:  Event  Type  (Creation  /  Modification  /  Satisfaction)  
+Latest  Event  Date  MCA  Probe  →  Latest  Event  on  Open  Charges  
+Column:  Event  Date  
+Sum  of  Open  Charges  (total)  
+MCA  Probe  →  About  the  Company  
+Column:  SUM  OF  CHARGES  (aggregate)  
+  
+B.4  Financial  Analysis  —  Data  Source  Mapping  
+  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Sl.  No.  in  Source  
+Share  Capital  ITR  →  Balance  Sheet  Sl.  1  —  Share  Capital;  MCA  Probe  →  Standalone  Financial  Data  —  Share  Capital  
+Reserves  and  Surplus  ITR  →  Balance  Sheet  Sl.  2  —  Reserves  and  Surplus;  MCA  Probe  →  Standalone  Financial  Data  —  Reserves  and  Surplus  
+Shareholders’  Funds  (Net  Worth)  
+ITR  →  Balance  Sheet  Sl.  5  —  Total  Shareholders’  Funds;  MCA  Probe  →  Standalone  Financial  Data  —  Total  Equity  
+LT  Borrowings  (Bonds)  ITR  →  Balance  Sheet  Sl.  7  —  Bonds  /  Debentures  
+LT  Borrowings  (Term  Loans)  
+ITR  →  Balance  Sheet  Sl.  8  —  Term  Loans;  MCA  Probe  →  Standalone  Financial  Data  —  LT  Borrowings  
+ST  Loans  Repayable  on  Demand  
+ITR  →  Balance  Sheet  Sl.  20  —  Loans  Repayable  on  Demand;  MCA  Probe  →  Standalone  Financial  
+Data  —  Short  Term  Borrowings  
+Trade  Payables  (>6  months)  
+ITR  →  Balance  Sheet  Sl.  14  —  Trade  Payables  exceeding  six  months  
+Trade  Payables  (<6  months)  
+ITR  →  Balance  Sheet  Sl.  25  —  Trade  Payables  within  six  months  
+Trade  Payables  (total)  MCA  Probe  →  Standalone  Financial  Data  
+Row:  Trade  Payables  (sum  of  >6M  +  <6M)  
+Total  Current  Liabilities  ITR  →  Balance  Sheet  Sl.  29  —  Total  Current  Liabilities;  MCA  Probe  →  Standalone  Financial  Data  
+Net  Fixed  Assets  ITR  →  Balance  Sheet  Sl.  39  —  Net  Fixed  Assets  (Gross  Block  minus  Depreciation);  MCA  Probe  →  Standalone  Financial  Data  —  Net  Fixed  Assets  
+Trade  Receivables  (>6  months)  
+ITR  →  Balance  Sheet  Sl.  41  —  Trade  Receivables  exceeding  six  months  
+Trade  Receivables  (<6  months)  
+ITR  →  Balance  Sheet  Sl.  48  —  Trade  Receivables  within  six  months  
+Trade  Receivables  (total)  MCA  Probe  →  Standalone  Financial  Data  
+Row:  Trade  Receivables  (sum  of  >6M  +  <6M)  
+Cash  and  Cash  Equivalents  
+ITR  →  Balance  Sheet  Sl.  49  —  Cash  and  Cash  Equivalents;  MCA  Probe  →  Standalone  Financial  Data  —  Cash  and  Bank  Balances  
+Other  Current  Assets  ITR  →  Balance  Sheet  Sl.  52  —  Other  Current  Assets  
+Total  Current  Assets  ITR  →  Balance  Sheet  Sl.  53  —  Total  Current  Assets;  MCA  Probe  →  Standalone  Financial  Data  
+Total  Assets  ITR  →  Balance  Sheet  Sl.  54  —  Total  Assets;  MCA  Probe  →  Standalone  Financial  Data  
+Revenue  from  Operations  ITR  →  Profit  And  Loss  Statement  
+Sl.  5  —  Revenue  from  Operations;  MCA  Probe  →  Standalone  Financial  Data  —  Net  Revenue  
+Other  Income  ITR  →  Profit  And  Loss  Statement  
+Sl.  27  —  Total  Other  Income  
+Employee  Benefit  Expenses  
+ITR  →  Profit  And  Loss  Statement  
+Sl.  17  —  Employee  Benefit  Expenses;  MCA  Probe  →  Standalone  Financial  Data  —  Employee  Benefit  Expense  
+Power  and  Fuel  ITR  →  Profit  And  Loss  Statement  
+Sl.  16  —  Power  and  Fuel  
+Other  Expenses  ITR  →  Profit  And  Loss  Statement  
+Sl.  20  —  Other  Expenses;  MCA  Probe  →  Standalone  Financial  Data  —  Other  Expenses  
+EBITDA  ITR  →  Profit  And  Loss  Statement  
+Sl.  22  —  EBITDA;  MCA  Probe  →  Standalone  Financial  Data  —  EBITDA  /  Operating  Profit  
+Depreciation  ITR  →  Profit  And  Loss  Statement  
+Sl.  23  —  Depreciation  and  Amortisation  
+EBIT  ITR  →  Profit  And  Loss  Statement  
+Sl.  24  —  EBIT  
+Finance  Cost  ITR  →  Profit  And  Loss  Statement  
+Sl.  25  —  Finance  Cost;  MCA  Probe  →  Standalone  
+Financial  Data  —  Finance  Costs  
+Profit  Before  Tax  ITR  →  Profit  And  Loss  Statement  
+Sl.  29  —  Profit  Before  Tax;  MCA  Probe  →  Standalone  Financial  Data  
+Income  Tax  (Current)  ITR  →  Profit  And  Loss  Statement  
+Sl.  30  —  Current  Tax;  MCA  Probe  →  Standalone  Financial  Data  —  Income  Tax  
+Profit  After  Tax  ITR  →  Profit  And  Loss  Statement  
+Sl.  32  —  Profit  After  Tax;  MCA  Probe  →  Standalone  Financial  Data  —  Net  Income  
+Current  Ratio  ITR  →  Ratio  Analysis  Row:  Current  Ratio;  MCA  Probe  →  Standalone  Financial  Data  —  RATIOS  —  Current  Ratio  
+Quick  Ratio  ITR  →  Ratio  Analysis  Row:  Quick  Ratio;  MCA  Probe  →  Standalone  Financial  Data  —  RATIOS  —  Quick  Ratio  
+Cash  Ratio  ITR  →  Ratio  Analysis  Row:  Cash  Ratio  
+DSO  (Debtor  Days)  ITR  →  Ratio  Analysis  Row:  Trade  Receivables  Turnover  (in  days);  MCA  Probe  →  Standalone  Financial  Data  —  RATIOS  —  Debtors/Sales  Days  
+DPO  (Creditor  Days)  ITR  →  Ratio  Analysis  Row:  Trade  Payables  Turnover  (in  days);  MCA  Probe  →  Standalone  Financial  Data  —  RATIOS  —  Payables/Sales  Days  
+EBITDA  Margin  ITR  →  Ratio  Analysis  Row:  EBITDA  Margin;  MCA  Probe  →  Standalone  
+Financial  Data  —  RATIOS  —  EBITDA  Margin  
+Net  Profit  Margin  ITR  →  Ratio  Analysis  Row:  Net  Profit  Margin;  MCA  Probe  →  Standalone  Financial  Data  —  RATIOS  —  Net  Margin  
+Return  on  Equity  (ROE)  ITR  →  Ratio  Analysis  Row:  Return  on  Equity;  MCA  Probe  →  Standalone  Financial  Data  —  RATIOS  —  ROE  
+Return  on  Capital  Employed  
+ITR  →  Ratio  Analysis  Row:  Return  on  Capital  Employed  
+Interest  Coverage  Ratio  ITR  →  Ratio  Analysis  Row:  Interest  Coverage  Ratio  
+Debt  /  Equity  Ratio  MCA  Probe  →  Standalone  Financial  Data  
+RATIOS  —  Debt/Equity  
+Sales  Growth  (YoY)  ITR  →  Ratio  Analysis  Row:  Sales  Growth  
+PAT  Growth  (YoY)  ITR  →  Ratio  Analysis  Row:  Profit  After  Tax  Growth  
+Peer  EBITDA  Margin  MCA  Probe  →  Peer  Comparison  
+Column:  EBITDA  Margin  (%)  —  Median  of  peer  set  
+Peer  Revenue  Growth  MCA  Probe  →  Peer  Comparison  
+Column:  Revenue  (YoY  growth)  —  Median  
+Peer  ROE  MCA  Probe  →  Peer  Comparison  
+Column:  Return  on  Equity  (%)  —  Median  
+Peer  Current  Ratio  MCA  Probe  →  Peer  Comparison  
+Column:  Current  Ratio  —  Median  
+Peer  D/E  Ratio  MCA  Probe  →  Peer  Comparison  
+Column:  Debt/Equity  —  Median  
+Forex  Expense  MCA  Probe  →  Annexure  -  Financial  Params  
+Row:  Expense  in  foreign  currency  
+Forex  Income  MCA  Probe  →  Annexure  -  Financial  Params  
+Row:  Income  in  foreign  currency  
+Overdue  Trade  Receivables  
+ITR  →  Balance  Sheet  Sl.  41  —  Trade  Receivables  >6M;  MCA  Probe  →  Auditors’  Comments-Standalone  —  trade  receivables  exceeding  six  months;  Annexure  -  Financial  Params  —  Trade  receivables  exceeding  six  months  
+Related  Party  LT  Loans  ITR  →  Balance  Sheet  Sl.  9  —  LT  Liabilities  from  Related  Parties  +  Sl.  21  —  ST  Liabilities  from  Related  Parties  
+  
+B.5  ITR  Analysis  —  Data  Source  Mapping  
+  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Sl.  No.  in  Source  
+Total  Revenue  from  Operations  
+ITR  →  Profit  And  Loss  Statement  
+Sl.  5  —  Revenue  from  Operations  
+Total  Other  Income  ITR  →  Profit  And  Loss  Statement  
+Sl.  27  —  Total  Other  Income  
+Revenue  from  Services  ITR  →  Profit  And  Loss  Statement  
+Sl.  2  —  Sale  of  Services  
+Opening  Inventories  ITR  →  Profit  And  Loss  Statement  
+Sl.  6  —  Opening  Inventories  
+Closing  Inventories  ITR  →  Profit  And  Loss  Statement  
+Sl.  7  —  Closing  Inventories  
+Purchases  (Raw  Material)  ITR  →  Profit  And  Loss  Statement  
+Sl.  8  —  Purchases  of  Stock  /  Raw  Material  
+Gross  Profit  ITR  →  Profit  And  Loss  Statement  
+Sl.  13  —  Gross  Profit  
+Power  and  Fuel  ITR  →  Profit  And  Loss  Statement  
+Sl.  16  —  Power  and  Fuel  
+Employee  Benefit  Expenses  
+ITR  →  Profit  And  Loss  Statement  
+Sl.  17  —  Employee  Benefit  Expenses  
+Selling  /  Admin  /  Other  Exp  
+ITR  →  Profit  And  Loss  Statement  
+Sl.  18  —  Selling,  General  and  Admin  Expenses;  Sl.  20  —  Other  Expenses  
+EBITDA  ITR  →  Profit  And  Loss  Statement  
+Sl.  22  —  EBITDA  
+Depreciation  ITR  →  Profit  And  Loss  Statement  
+Sl.  23  —  Depreciation  and  Amortisation  
+EBIT  ITR  →  Profit  And  Loss  Statement  
+Sl.  24  —  EBIT  
+Finance  Cost  ITR  →  Profit  And  Loss  Statement  
+Sl.  25  —  Finance  Cost  
+Profit  Before  Tax  ITR  →  Profit  And  Loss  Statement  
+Sl.  29  —  Profit  Before  Tax  
+Current  Tax  ITR  →  Profit  And  Loss  Statement  
+Sl.  30  —  Current  Tax  
+Deferred  Tax  ITR  →  Profit  And  Loss  Statement  
+Sl.  31  —  Deferred  Tax  
+Profit  After  Tax  ITR  →  Profit  And  Loss  Statement  
+Sl.  32  —  Profit  After  Tax  (PAT)  
+Total  Non-Current  Assets  ITR  →  Balance  Sheet  Sl.  45  —  Total  Non-Current  Assets  
+Total  Current  Assets  ITR  →  Balance  Sheet  Sl.  53  —  Total  Current  Assets  
+Inventories  ITR  →  Balance  Sheet  Sl.  47  —  Inventories  
+Trade  Receivables  (>6M)  ITR  →  Balance  Sheet  Sl.  41  —  Trade  Receivables  exceeding  six  months  
+Trade  Receivables  (<6M)  ITR  →  Balance  Sheet  Sl.  48  —  Trade  Receivables  within  six  months  
+Trade  Payables  (>6M)  ITR  →  Balance  Sheet  Sl.  14  —  Trade  Payables  exceeding  six  months  
+Trade  Payables  (<6M)  ITR  →  Balance  Sheet  Sl.  25  —  Trade  Payables  within  six  months  
+Cash  and  Cash  Equivalents  
+ITR  →  Balance  Sheet  Sl.  49  —  Cash  and  Cash  Equivalents  
+Loan  from  Related  Party  (LT)  
+ITR  →  Balance  Sheet  Sl.  9  —  LT  Liabilities  from  Related  Parties  
+Loan  from  Related  Party  (ST)  
+ITR  →  Balance  Sheet  Sl.  21  —  ST  Liabilities  from  Related  Parties  
+Deferred  Tax  Liabilities  ITR  →  Balance  Sheet  Sl.  15  —  Deferred  Tax  Liabilities  
+Net  Worth  ITR  →  Balance  Sheet  Sl.  55  —  Net  Worth  
+Current  Ratio  ITR  →  Ratio  Analysis  Row:  Current  Ratio  
+Quick  Ratio  ITR  →  Ratio  Analysis  Row:  Quick  Ratio  =  (Current  Assets  –  Inventories)  /  Current  Liabilities  (Appendix-1  Sl.  No.  3)  
+Cash  Ratio  ITR  →  Ratio  Analysis  Row:  Cash  Ratio  
+Net  Working  Capital  /  Total  Assets  
+ITR  →  Ratio  Analysis  Row:  Net  Working  Capital  to  Total  Assets  
+DSO  (Debtor  Days)  ITR  →  Ratio  Analysis  Row:  Trade  Receivables  Turnover  (in  days)  
+DPO  (Creditor  Days)  ITR  →  Ratio  Analysis  Row:  Trade  Payables  Turnover  (in  days)  
+Cash  Conversion  Cycle  ITR  →  Ratio  Analysis  Row:  Cash  Conversion  (in  days)  
+EBITDA  Margin  ITR  →  Ratio  Analysis  Row:  EBITDA  Margin  
+Net  Profit  Margin  ITR  →  Ratio  Analysis  Row:  Net  Profit  Margin  
+Return  on  Equity  ITR  →  Ratio  Analysis  Row:  Return  on  Equity  
+Return  on  Capital  Employed  
+ITR  →  Ratio  Analysis  Row:  Return  on  Capital  Employed  (Appendix-1  Sl.  No.  19)  
+Interest  Coverage  Ratio  ITR  →  Ratio  Analysis  Row:  Interest  Coverage  Ratio  =  EBIT  /  Finance  Cost  (Appendix-1  Sl.  No.  20)  
+Sales  Growth  (YoY)  ITR  →  Ratio  Analysis  Row:  Sales  Growth  
+PAT  Growth  (YoY)  ITR  →  Ratio  Analysis  Row:  Profit  After  Tax  Growth  
+ITR  Filing  Type  ITR  →  General  Information  
+Row:  ITR  Type  
+Assessment  Year  ITR  →  Tax  Details  Row:  Assessment  Year  
+Total  Income  ITR  →  Tax  Calculation  Row:  Total  Income  
+Tax  Payable  ITR  →  Tax  Calculation  Row:  Tax  Payable  /  Net  Tax  Payable  
+  
+  
+B.6  MCA  Analysis  —  Data  Source  Mapping  
+(This  sheet  is  going  to  be  populated  entirely  by  AI,  only  the  fields  are  to  be  
+passed
+ 
+to
+ 
+AI
+ 
+by
+ 
+parsing)
+ 
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Sl.  No.  in  Source  
+Charges  Oustanding  MCA  Probe  →  Open  Charges  Sequence  
+Column:  HOLDER  NAME  —  identify  bank  /  NBFC  /  ARC  holders;  cross-ref  Status  =  Open  
+Asset  Stripping  Risk  MCA  Probe  →  Open  Charges  Sequence  
+Column:  CHARGE  AMOUNT  (aggregate  open  charges);  cross-ref  MCA  Probe  →  Standalone  Financial  Data  —  Total  Assets  for  asset-coverage  ratio  
+Auditor  Repudiation  /  Qualification  
+MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Whether  Report  Qualified/Adverse;  Comments  Given  By  
+Legal  Attachment  Risk  MCA  Probe  →  Legal  History  
+Columns:  Case  No.,  Case  Type,  Case  Status,  Date  of  Last  Order/Activity,  Description,  Petitioner,  Respondent  
+Director  Compliance  (DIN  Status)  
+MCA  Probe  →  Directors  Column:  STATUS  (Active  /  Disqualified  /  Resigned);  cross-ref  Director  -  Association  History  —  appointment/cessation  pattern  
+Working  Capital  Gap  (Quick  Ratio)  
+MCA  Probe  →  Standalone  Financial  Data  
+RATIOS  —  Quick  Ratio;  Peer  Comparison  —  Quick  Ratio  Median  for  benchmark  
+Receivable  Fraud  Risk  (Overdue  Debtors)  
+MCA  Probe  →  Auditors’  Comments-Standalone  
+Comments  on  trade  receivables  exceeding  six  months;  Annexure  -  Financial  Params  —  Trade  receivables  exceeding  six  months  
+Industry  Benchmark  (EBITDA  Margin)  
+MCA  Probe  →  Peer  Comparison  
+Column:  EBITDA  Margin  (%)  vs.  Median  of  #  of  Peers  
+Revenue  Growth  vs  Industry  
+MCA  Probe  →  Peer  Comparison  
+Column:  Revenue  growth  vs.  Peer  Median;  Financial  Year  comparison  rows  
+ROE  vs  Peers  MCA  Probe  →  Peer  Comparison  
+Column:  Return  on  Equity  (%)  vs.  Median  of  peer  set  
+Director  Network  Contagion  Risk  
+MCA  Probe  →  Other  Directorships  
+Columns:  Corporate  Name,  Sum  Of  Charges,  CIN;  cross-ref  Director  -  Association  History  for  repeated  appointments  to  stressed  entities  
+Related  Party  Ownership  Concentration  
+MCA  Probe  →  Shareholding  More  Than  5%  
+PROMOTERS  section  —  Shareholding  %;  cross-ref  About  the  Company  —  AS-18  RP  transaction  gross  value  
+MSME  Payment  Discipline  MCA  Probe  →  MSME  Supplier  Payment  Delays  
+All  rows:  Supplier  Name,  PAN,  Total  Amount  Due,  
+Amount  Due,  Period  (month-by-month)  
+Debtors-to-Sales  Ratio  (DSO)  
+MCA  Probe  →  Standalone  Financial  Data  
+RATIOS  —  Debtors/Sales  Days;  Peer  Comparison  —  Debtors/Sales  Days  Median  
+Payables-to-Sales  Ratio  (DPO)  
+MCA  Probe  →  Standalone  Financial  Data  
+RATIOS  —  Payables/Sales  Days;  Peer  Comparison  —  Payables/Sales  Days  Median  
+EPFO  Employee  Strength  MCA  Probe  →  EPFO  Establishments  
+Columns:  Establishment  Name,  Number  of  Employees,  Latest  Date  of  Credit,  Wage  Month  
+Securities  Allotment  Events  
+MCA  Probe  →  Securities  Allotment  
+All  allotment  events:  Date,  Amount,  Category  
+Related  Corporates  MCA  Probe  →  Related  Corporates  
+All  related  entity  names,  CINs,  relationship  type  
+Annexure  -  Contact  Details  MCA  Probe  →  Annexure  -  Contact  Details  
+Email,  Phone,  Address  for  company  contacts  
+  
+  
+B.7  Bank  Statement  Analysis  (Sheets)  
+The  data  from  accounts  provided  will  be  clubbed  from  individual  BSA  analysis  data  from  
+the
+ 
+following
+ 
+sheets.
+ 
+Format
+ 
+of
+ output(Reference:https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account )  
+  
+-Account  Details  
+-CAM
+ 
+Analysis
+ 
+-All
+ 
+Transactions
+ 
+-CAM
+ 
+Analysis
+ 
+-Fraud
+ 
+and
+ 
+Risk
+ 
+Triggers
+ 
+-Irregular
+ 
+Transactions
+ 
+B.7  Peer  Benchmarking  —  Data  Source  Mapping  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Column  in  Source  
+Financial  Year  MCA  Probe  →  Peer  Comparison  
+Column:  Financial  Year  
+No.  of  Peers  in  Sample  MCA  Probe  →  Peer  Comparison  
+Column:  #  of  Peers  in  Sample  
+Revenue  (Rs)  MCA  Probe  →  Peer  Comparison  
+Metric:  Revenue  —  Company  value  and  Peer  median  (Comparative  Metrics  columns)  
+Revenue  Growth  (%)  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Revenue  Growth  (%)  —  Company  vs.  Peer  median  
+EBITDA  Margin  (%)  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  EBITDA  Margin  (%)  —  Company  vs.  Peer  median  
+Net  Margin  (%)  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Net  Margin  (%)  —  Company  vs.  Peer  median  
+Return  on  Equity  (%)  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Return  on  Equity  (%)  —  Company  vs.  Peer  median  
+Debt  /  Equity  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Debt  /  Equity  —  Company  vs.  Peer  median  
+Inventory  /  Sales  (Days)  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Inventory  /  Sales  (Days)  —  Company  vs.  Peer  median  
+Debtors  /  Sales  (Days)  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Debtors  /  Sales  (Days)  —  Company  vs.  Peer  median  
+Payables  /  Sales  (Days)  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Payables  /  Sales  (Days)  —  Company  vs.  Peer  median  
+Cash  Conversion  Cycle  (Days)  
+MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Cash  Conversion  Cycle  (Days)  —  Company  vs.  Peer  median  
+Sales  /  Net  Fixed  Assets  MCA  Probe  →  Peer  Comparison  
+Row/Metric:  Sales  /  Net  Fixed  Assets  —  Company  vs.  Peer  median  
+Peer  Company  Names  MCA  Probe  →  Peer  Comparison  
+Columns:  5  Closest  Peers  by  Revenue  —  Legal  Name,  City,  Revenue  (Rs)  
+Per-Peer  Metrics  (COMPARATIVE  METRICS  1–15)  
+MCA  Probe  →  Peer  Comparison  
+Columns:  COMPARATIVE  METRICS  1  through  COMPARATIVE  METRICS  15  —  Segment,  Metrics  row  per  peer  
+  
+B.8  Auditors  Details  —  Data  Source  Mapping  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Column  in  Source  
+Year  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Year  (financial  year  of  audit)  
+Auditor’s  Name  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Auditor  Name  
+Type  (Standalone  /  Consolidated)  
+MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Section  —  value  is  STANDALONE  or  CONSOLIDATED  
+Auditor’s  Membership  No.  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Auditor  Membership  Number  
+Adverse  Comments  (Yes  /  No)  
+MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Whether  Auditors’  Report  has  been  Qualified  or  has  any  Reservations  or  
+Contains  Adverse  Remarks  
+Auditor’s  Firm  Name  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Auditor  Firm  Name  
+Firm’s  Registration  No.  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Firm  Registration  Number  
+PAN  (of  firm  or  auditor)  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  PAN  (of  firm  or  auditor)  
+Address  (of  firm  or  auditor)  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Address  (of  firm  or  auditor)  
+Comment  Text  MCA  Probe  →  Auditors’  Comments-Standalone  
+Column:  Comments  Given  By;  Section  Name;  Footnotes  —  full  text  of  auditor  remarks  
+Auditor’s  Name  (cross-ref)  MCA  Probe  →  Peer  Comparison  
+Column:  Auditor  Name  (appears  in  Peer  Comparison  section  for  latest  year)  
+  
+B.9  GST  Returns  —  Data  Source  Mapping  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Column  in  Source  
+GSTIN  IDfy  GST  Analysis  →  Account  Details  
+Row:  GSTIN  
+PAN  IDfy  GST  Analysis  →  Account  Details  
+Row:  PAN  
+Analysis  Period  (From  /  To)  
+IDfy  GST  Analysis  →  Account  Details  
+Rows:  Period  From,  Period  To  
+State  of  Operations  IDfy  GST  Analysis  →  Account  Details  
+Row:  State  of  Operations  (based  on  max.  gross  sales)  
+GSTR  1  Monthly  Availability  
+IDfy  GST  Analysis  →  Data  Status  
+Columns:  GSTIN,  Return  Period  (monthly),  GSTR  1  row  —  Data  Available  /  Data  Unavailable  per  month  
+GSTR  2A  Monthly  Availability  
+IDfy  GST  Analysis  →  Data  Status  
+Columns:  GSTIN,  Return  Period  (monthly),  GSTR  2A  row  —  Data  Available  /  Data  Unavailable  per  month  
+GSTR  3B  Monthly  Availability  
+IDfy  GST  Analysis  →  Data  Status  
+Columns:  GSTIN,  Return  Period  (monthly),  GSTR  3B  row  —  Data  Available  /  Data  Unavailable  per  month  
+Total  Value  of  Sales  (A)  IDfy  GST  Analysis  →  Overview  
+GSTR  1  section  —  Row:  Total  Value  of  Sales  (A)  
+Total  Value  of  Debit  Notes  Issued  (B)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  1  section  —  Row:  Total  Value  of  Debit  Notes  Issued  (B)  
+Total  Value  of  Credit  Notes  Issued  (C)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  1  section  —  Row:  Total  Value  of  Credit  Notes  Issued  (C)  
+Adjustments  due  to  Amendments  (D)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  1  section  —  Row:  Adjustments  due  to  Amendments  (D)  
+Gross  Sales  (E  =  A+B−C+D)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  1  section  —  Row:  Gross  Sales  (E=A+B-C+D)  
+Total  Value  of  Purchases  (F)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  2A  section  —  Row:  Total  Value  of  Purchases  (F)  
+Total  Value  of  Debit  Notes  Issued  (G)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  2A  section  —  Row:  Total  Value  of  Debit  Notes  Issued  (G)  
+Total  Value  of  Credit  Notes  Issued  (H)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  2A  section  —  Row:  Total  Value  of  Credit  Notes  Issued  (H)  
+Adjustments  due  to  Amendments  (I)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  2A  section  —  Row:  Adjustments  due  to  Amendments  (I)  
+Gross  Purchases  (J  =  F−G+H+I)  
+IDfy  GST  Analysis  →  Overview  
+GSTR  2A  section  —  Row:  Gross  Purchases  (J=F-G+H+I)  
+Gross  Profit  (K  =  E−J)  IDfy  GST  Analysis  →  Overview  
+Row:  Gross  Profit  (K=E-J)  
+Total  GST  Liability  (L)  IDfy  GST  Analysis  →  Overview  
+Row:  Total  GST  Liability  (L)  
+Input  Tax  Credit  Available  (M)  
+IDfy  GST  Analysis  →  Overview  
+Row:  Input  Tax  Credit  Available  (M)  
+Profit  after  GST  (N  =  K−L+M)  
+IDfy  GST  Analysis  →  Overview  
+Row:  Profit  after  GST  (N=K-L+M)  
+B2B  Sales  IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  B2B  (Business  to  Business)  —  Sales  
+B2CL  Sales  IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  B2CL  (Business  to  Customers  Large)  
+B2CS  Sales  IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  B2CS  (Business  to  Customers  Small)  
+CDNR  (Credit/Debit  Notes  —  Registered)  
+IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  CDNR  (Credit  and  Debit  Notes  Registered)  
+CDNUR  (Credit/Debit  Notes  —  Unregistered)  
+IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  CDNUR  (Credit  and  Debit  Notes  Un-Registered)  
+Exports  IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  Exports  
+NIL  /  Exempted  /  Non-GST  IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  NIL  (NIL/Exempted/Non-GST)  
+B2B  Purchases  IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  B2B  (Business  to  Business)  —  Purchases  
+Import  Purchases  IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  Imports  (IMPG  +  IMPSEZ)  
+Reverse  Charge  Purchases  
+IDfy  GST  Analysis  →  Overview  
+Business  Breakup  section  —  Reverse  Charge  
+GSTR  3B  Outward  Supply  —  As  per  GSTR  1  vs  3B  
+IDfy  GST  Analysis  →  Overview  
+Comparison  with  GSTR  3B  section  —  Total  Outward  Supply:  As  per  GSTR  1,  As  per  GSTR  3B,  %  Variation  
+GSTR  3B  Export  Value  —  As  per  GSTR  1  vs  3B  
+IDfy  GST  Analysis  →  Overview  
+Comparison  with  GSTR  3B  section  —  Export  Value:  As  per  GSTR  1,  As  per  GSTR  3B,  %  Variation  
+GSTR  3B  NIL/Exempted  —  As  per  GSTR  1  vs  3B  
+IDfy  GST  Analysis  →  Overview  
+Comparison  with  GSTR  3B  section  —  NIL/Exempted/Non-Gst:  As  per  GSTR  1,  As  per  GSTR  3B,  %  Variation  
+GSTR  3B  ITC  —  As  per  GSTR  2A  vs  3B  
+IDfy  GST  Analysis  →  Overview  
+Comparison  with  GSTR  3B  section  —  Input  Tax  
+Credit:  As  per  GSTR  2A,  As  per  GSTR  3B,  %  Variation  
+Monthly  Sales  (Taxable  Value  +  Tax)  
+IDfy  GST  Analysis  →  Monthly  Sales  and  Purchase  
+Monthly  Sales  Summary  —  Month,  Taxable  Value,  Tax  (per  month  row)  
+Monthly  Purchases  (Taxable  Value  +  Tax)  
+IDfy  GST  Analysis  →  Monthly  Sales  and  Purchase  
+Monthly  Purchases  Summary  —  Month,  Taxable  Value,  Tax  (per  month  row)  
+HSN  Code  IDfy  GST  Analysis  →  HSN  Summary  
+Column:  Code  
+HSN  Description  IDfy  GST  Analysis  →  HSN  Summary  
+Column:  Description  
+HSN  Quantity  IDfy  GST  Analysis  →  HSN  Summary  
+Columns:  Unit,  Quantity  
+HSN  Taxable  Value  +  Share  
+IDfy  GST  Analysis  →  HSN  Summary  
+Columns:  Taxable  Value,  %  in  Taxable  Value  
+HSN  Tax  Rate  IDfy  GST  Analysis  →  HSN  Summary  
+Column:  Tax  Rate  charged  
+Average  Sales  per  Month  IDfy  GST  Analysis  →  Summary  
+Averages  section  —  Row:  Average  Sales  per  Month  
+Average  Sales  per  Customer  
+IDfy  GST  Analysis  →  Summary  
+Averages  section  —  Row:  Average  Sales  per  Customer  
+Average  Purchases  per  Month  
+IDfy  GST  Analysis  →  Summary  
+Averages  section  —  Row:  Average  Purchases  per  Month  
+Average  Purchases  per  Supplier  
+IDfy  GST  Analysis  →  Summary  
+Averages  section  —  Row:  Average  Purchases  per  Supplier  
+Nature  of  Suppliers/Customers  (Registered  %)  
+IDfy  GST  Analysis  →  Summary  
+Nature  of  suppliers  and  customers  section  —  Registered,  Unregistered  proportions  for  both  Customers  and  Suppliers  
+Document  Count  (Invoices,  Credit/Debit  Notes)  
+IDfy  GST  Analysis  →  Summary  
+Doc  Name  section  —  Invoice  for  outward  supply,  Revised  Invoice,  Debit  Note  —  Total  Issued,  Cancelled,  Net  Issued  
+  
+  
+B.10  Major  Suppliers  and  Buyers  —  Data  Source  Mapping  
+  
+CAM  Field  Source  Document  →  Sheet  
+Field  /  Column  in  Source  
+Supplier  Name  (Top  10)  IDfy  GST  Analysis  →  Major  Suppliers  &  Customers  
+10  Major  Suppliers  section  —  Column:  Name  of  Supplier  
+Supplier  —  No.  of  Invoices  IDfy  GST  Analysis  →  Major  Suppliers  &  Customers  
+10  Major  Suppliers  section  —  Column:  Total  No.  of  invoices  
+Supplier  —  Total  Taxable  Amount  
+IDfy  GST  Analysis  →  Major  Suppliers  &  Customers  
+10  Major  Suppliers  section  —  Column:  Total  Taxable  Amount  (ranked  by  value)  
+Customer  Name  (Top  10)  IDfy  GST  Analysis  →  Major  Suppliers  &  Customers  
+10  Major  Customers  section  —  Column:  Name  of  Customer  
+Customer  —  No.  of  Invoices  
+IDfy  GST  Analysis  →  Major  Suppliers  &  Customers  
+10  Major  Customers  section  —  Column:  Total  No.  of  invoices  
+Customer  —  Total  Taxable  Amount  
+IDfy  GST  Analysis  →  Major  Suppliers  &  Customers  
+10  Major  Customers  section  —  Column:  Total  Taxable  Amount  (ranked  by  value)  
+Supplier  Regularity  IDfy  GST  Analysis  →  Supplier  Summary  
+Column:  Regular/Irregular  —  classification  based  on  filing  pattern  
+Supplier  Filing  Status  IDfy  GST  Analysis  →  Supplier  Summary  
+Column:  Filing  Status  (Filed/Invoices  Raised)  —  ratio  of  filed  returns  to  invoices  raised  
+Supplier  Tax  +  Taxable  Value  
+IDfy  GST  Analysis  →  Supplier  Summary  
+Columns:  Tax,  Total  Taxable  Value,  Proportion  in  Total  Supply  Value  
+State-wise  Supplier  Distribution  
+IDfy  GST  Analysis  →  Supplier  Summary  
+State-wise  Supplier  Frequency  section  —  State,  Frequency,  Tax,  Taxable  Value  
+Customer  Regularity  IDfy  GST  Analysis  →  Customer  Summary  
+Column:  Regular/Irregular  —  classification  based  on  filing  pattern  
+Customer  Filing  Status  IDfy  GST  Analysis  →  Customer  Summary  
+Column:  Filing  Status  (Filed/Invoices  Raised)  —  ratio  of  filed  returns  to  invoices  raised  
+Customer  Tax  +  Taxable  Value  
+IDfy  GST  Analysis  →  Customer  Summary  
+Columns:  Tax,  Total  Taxable  Value,  Proportion  in  Total  Supply  Value  
+State-wise  Customer  Distribution  
+IDfy  GST  Analysis  →  Customer  Summary  
+State-wise  Customer  Frequency  section  —  State,  Frequency,  Tax,  Taxable  Value,  Registered/Unregistered  split  
+Common  Suppliers/Customers  (Related-Party  Flag)  
+IDfy  GST  Analysis  →  Common  Customers  and  Suppliers  
+Columns:  Name,  Purchase  Value,  Supply  Value  —  entities  appearing  in  both  supplier  and  customer  lists  
+  
+B.8  Cross-Source  Triangulation  —  Field  Pairing  Reference  
+The  following  table  maps  each  triangulation  check  to  the  exact  pair  of  source  fields  
+being
+ 
+compared.
+ 
+Developers
+ 
+must
+ 
+ensure
+ 
+both
+ 
+values
+ 
+are
+ 
+extracted
+ 
+before
+ 
+the
+ 
+triangulation
+ 
+engine
+ 
+runs.
+ 
+(The  value  populated  in  each  column  will  be  a  numerical  value  in  Rupee,  except  
+for
+ 
+“Total
+ 
+Borrowings”)
+ 
+ 
+(In
+ 
+case
+ 
+multiple
+ 
+documents
+ 
+of
+ 
+bank
+ 
+statements
+ 
+are
+ 
+received,
+ 
+the
+ 
+BSA
+ 
+value
+ 
+will
+ 
+be
+ 
+sum
+ 
+of
+ 
+individual
+ 
+bank
+ 
+statements
+ 
+values)
+ 
+ 
+Triangulation  Check  
+ITR  Source  Field  and  Rationale  (if  applicable)  
+GST  Source  Field  and  Rationale  (if  applicable)  
+MCA  Source  Field  and  Rationale  (if  applicable)  
+Bank  Statement   Value  
+Revenue  from  operations  
+ITR:  P&L  Sl.  5  (Revenue  from  Ops)  
+GST:  Overview  →  GSTR  1  taxable  outward  
+MCA:  Standalone  P&L  →  Revenue  
+BSA:  Revenue  calculation  logic.  
+(if  multi  account,  take  sum  value)   -If  BSA  statement  period  <12  months  (eg:  8  months)  Revenue  -  ((Revenue  (8  months)  *  8))/12   -If  BSA  statement  period  of  >12  months  (Take  revenue  calculation  of  
+recent  12  months)  
+Vendor  Authenticity  
+ITR  :  NA  
+  
+GST  :GSTR-2B  B2B  Inward  Supplies  —  Supplier  GSTIN  
+vs  GSTR-1  Buyer  list  cross-match  (This  is  readily  available  as  a  vendor  api  output,  match  the  top  buyer  entity  with  top  seller  entity  for  the  first  3  suppliers/  buyers)  
+(Ex:  If  an  entity  is  detected  as  top  supplier  (rank  1),  and  
+MCA  :  NA  
+  
+N.A  
+(GST  value  taken  is  taxable  value  and  BSA  value  taken  is  actual  sales,  they  cannot  be  directly  compared)  
+that  same  entity  is  detected  as  top  buyer  (rank1-3),  this  check  would  still  be  flagged  
+-If  detected  the  value  that  should  be  populated  here  is  the   (Taxable  value  (supplier  amount)  -  Taxable  value  (customer  amount))  
+  
+Other  Income/  Unidentified  Inflows  
+ITR:  P&L  Sl.  4  (Other  
+N.A  MCA  Standalone  Financial  Data  
+Sum  of  Non  Trade  Credit  amount  
+operating  income)  
+|  Other  Income  line  
+Employee  Expenses/  Salary  
+ITR:  P&L  Sl.  10  +  Sl.  17   (Direct  Wages  +  Employee  Benefit  Expenses)  
+N.A  MCA  Standalone  Financial  Data  |  Employee  Benefit  Expenses  
+  
+Sum  of  (Employee  expenses  and  reimbursements  debits)  
+Raw  material  purchase  cost  
+ITR:  P&L  Sheet  |  Sl.  No.  8  —  Purchases  
+  
+GST  ReturnsSections  Business  Breakup  →  Purchases  →  B2B  
+MCA  Standalone  Financial  Data   |  Cost  of  Materials  +  Purchases  of  Stock  in  trade  
+  
+N.A  
+(Not  possible  to  correctly  identify  what  aspect  of  vendor  bill  payment  is  to  an  organisation  for  raw  
+material  purchase  itself)  
+Utility  Expense  Audit  
+ITR:P&L  Sheet  |  Sl.  No.  16  
+Power  and  Fuel  
+  
+N.A  MCA:  Standalone  Financial  Data—  Other  Expenses  
+Power  &  Fuel  line  
+BSA:  Sum  of  utility  bill  payments   
+Inventory  ITR:  Balance  Sheet  |  Sl.  No.  47-  Inventories  
+  
+N.A  MCA:  Standalone  Financial  Data—  Inventories  
+N.A  
+Bank  Balances  ITR:  
+Balance  Sheet  |  Sl.  No.  49  
+N.A  MCA:  Standalone  Financial  Data—  Cash  
+Bank  Balance  at  the  end  of  statement  period  
+Cash  and  Cash  Equivalents  
+  
+and  Cash  Equivalents   
+Investments  (FD/Financial  Assets)  
+ITR-:Balance  Sheet  |  Sl.  No.  40  —  Non-Current  InvestmentsSl.  No.  46  —  Current  Investments  
+(Sum  of  both)  
+N.A  MCA:  Standalone  Financial  Data—  Investments  
+(Non-current  +  Current)  
+  
+Bulk  Investment  (sum)  
+Loan  and  advances  given  
+ITR-Balance  Sheet  |  Sl.  No.  43  
+Long  Term  Loans  and  Advances  
+Sl.  No.  50  —  Short  Term  Loans  &  Advances  
+(Sum  of  both)  
+N.A  MCA:  Standalone  Financial  Data—    Long  Term  Loans  and  Advances  
+Short  Term  Loans  &  Advances  
+(Sum  of  both)  
+  
+N.A  
+Total  Borrowings  
+ITR-Balance  sheet  |  Total  Non  current  liabilities  
+N.A  MCA:  Standalone  Financial  Data—   Total  Non  Current  Liabilities  
+There  will  only  be  2  values  here  Total  Detected  EMI  Amount  (EMI  +  Probable  EMI)  :  Sum  
+(Loan/EMI  Payment  Debits)  
+Else  value  will  be  0,  if  no  obligations  detected  
+Trade  Payables  
+ITR:  Balance  Sheet  |  Sl.  No.  14  -Trade  Payables  (>6  Months)  Sl.  No.  25  —  Trade  Payables  (<6  Months)  
+  
+(Take  sum  of  both)  
+N.A  MCA:  Standalone  Financial  Data—    
+Trade  Payables  
+  
+N.A  
+Vendor  Payment  Scan  
+ITR:  P&L  Sheet  |  Sl.  No.  20  
+Other  Expenses  
+  
+N.A  MCA:  Standalone  Financial  Data—    Other  Expenses  
+  
+Sum  of  vendor  bill  payments.   (This  sum  value  is  to  be  displayed)  
+Calculate  if  the  top  receiver  entity  detected  is  any  related  related  party  with  fuzzy  match  logic   (Check  “Related  Corporate”  →  “Corporate  Name”  in  MCA  JSON)  If  it  this,  this  needs  to  be  passed  to  AI  orchestration  layer  to  
+highlight  in  AI  inference  
+Undisclosed  Capital  Inflows  
+N.A  N.A  N.A  BSA  -  Non  trade  credits  from  entities  not  mentioned  in  director  list  in  MCA.  
+  
+Related  Party  Disclosure  
+ITR:  Balance  sheet  |  Short  term  liabilities  from  RP  +  long  term  liabilities  from  RP  
+  
+N.A  N.A  There  will  only  be  2  values  here  Total  Detected  EMI  Amount  (EMI  +  Probable  EMI)  :  Sum  (Loan/EMI  Payment  Debits)  (Using  fuzzy  match  check  if  the  receiver  is  a  related  corporate  from  MCA,  if  so  only  then  send  this  value  to  AI)  
+Else  value  will  be  0,  if  no  emi  payments  detected  being  
+sent  to  related  corporates  
+Auditor  Fee  Traceability  
+N.A  N.A  MCA:  Standalone  Financial  Data—    Payment  to  Auditors  
+  
+BSA:  Search  narration  for  auditor  firm  name  debit  Auditor  Name  and  Firm  found  in  Auditor(s)  details  in  Standalone  Financial  Data  
+  
+The  following  sheets  will  be  populated  from  existing  NetScan  Output.  
+-Court
+ 
+and
+ 
+AML
+ 
+-
+ 
+For
+ 
+main
+ 
+and
+ 
+related
+ 
+entities
+ 
+-Labour
+ 
+Stats
+ 
+-
+ 
+This
+ 
+is
+ 
+EPFO
+ 
+Filing
+ 
+data
+ 
+which
+ 
+is
+ 
+currently
+ 
+unavailable
+ 
+from
+ 
+EPFO,
+ 
+so
+ 
+this
+ 
+sheet
+ 
+will
+ 
+not
+ 
+be
+ 
+populated
+ 
+in
+ 
+V1
+ 
+-Network
+ 
+Overview
+ 
+ 
+10.  Success  Metrics  &  Acceptance  Criteria  
+10.1  Product  KPIs  
+Metric  Target  (v1.0  Launch)  
+Time  to  complete  full  CAM  <  60  minutes  
+Document  parsing  accuracy  (ITR  fields)  >  97%  
+Document  parsing  accuracy  (GST  fields)  >  97%  
+BSA  transaction  categorisation  accuracy  >  90%  
+False  positive  rate  (flags  raised  incorrectly)  
+<  10%  
+False  negative  rate  (real  flags  missed)  <  5%  
+  
+10.2  Acceptance  Criteria  for  v1.0  Launch  
+1.  ITR  max  file  size  -  20MB,  Bank  Statement  max  file  size  -  50MB  (configured  in  
+TIP)
+ 2.  If  a  partnership  firm  is  given  for  analysis  and  the  client  wants  just  GST-BSA  
+analysis,
+ 
+the
+ 
+“Company
+ 
+Information”
+ 
+sheet
+ 
+should
+ 
+populate
+ 
+the
+ 
+following
+ 
+details
+ 
+from
+ 
+GST
+ 
+and
+ 
+Bank
+ 
+Statement
+ 
+-Company
+ 
+Name
+ 
+-GSTIN
+ 
+-PAN
+ 
+-Account  holder  name  (Bank  Statement)  
+-Address
+ 
+(Bank
+ 
+Statement)
+ 3.  If  bank  statement  provided  is  of  <12  months  or  >12  months-  Calculation  to  be  
+adjusted
+ 
+as
+ 
+per
+ 
+logic
+ 
+mentioned
+ 
+in
+ 
+Triangulation
+ 
+BSA
+ 
+value
+ 
+column.
+ 4.  All  4  triangulation  options  need  to  be  tested  (ITR-GST-MCA-BSA).  BSA  will  
+be
+ 
+fixed
+ 
+in
+ 
+each
+ 
+triangulation
+ 
+and
+ 
+cannot
+ 
+be
+ 
+opted
+ 
+out.
+ 
+Eg:
+ 
+A
+ 
+client
+ 
+can
+ 
+choose
+ 
+ITR-BSA
+ 
+(Only,
+ 
+ITR
+ 
+and
+ 
+BSA
+ 
+details
+ 
+related
+ 
+sheets
+ 
+(data
+ 
+available
+ 
+in
+ 
+those
+ 
+sheets
+ 
+can
+ 
+only
+ 
+be
+ 
+fetched
+ 
+with
+ 
+ITR
+ 
+and
+ 
+BSA
+ 
+and
+ 
+rest
+ 
+of
+ 
+the
+ 
+values
+ 
+will
+ 
+be
+ 
+populated
+ 
+but
+ 
+mentioned
+ 
+as
+ 
+N/A)
+ 
+.
+ 
+GST
+ 
+and
+ 
+MCA
+ 
+related
+ 
+sheets
+ 
+will
+ 
+be
+ 
+shown
+ 
+in
+ 
+excel
+ 
+with
+ 
+one
+ 
+statement
+ 
+“GST/MCA
+ 
+data
+ 
+not
+ 
+provided”.
+ 
+In
+ 
+Triangulation
+ 
+sheet,
+ 
+the
+ 
+GST/MCA
+ 
+column
+ 
+will
+ 
+be
+ 
+shown
+ 
+as
+ 
+N.A
+ 5.  Successfully  extract  all  JSON  fields  with  <  2%  field  error  rate  on  a  test  set.  6.  All  document  related  parameters  are  correctly  extracted  and  stored  against  the  
+particular
+ 
+case,
+ 
+Company
+ 
+related
+ 
+information
+ 
+like
+ 
+Company
+ 
+Name,
+ 
+Business
+ 
+Type/Activity
+ 
+detected
+ 
+from
+ 
+MCA
+ 
+needs
+ 
+to
+ 
+be
+ 
+stored
+ 
+against
+ 
+each
+ 
+ITR/MCA/BSA/MCA
+ 
+value
+ 
+extracted
+ 
+for
+ 
+that
+ 
+company.
+ 7.  The  deviation  related  to  each  combination  of  documents  needs  to  be  stored  
+against
+ 
+company
+ 
+related
+ 
+information.
+ 8.  The  Risk  Signal  sheet  will  have  3  exhaustive  statuses  
+-Yes:
+ 
+If
+ 
+detected
+ 
+and
+ 
+all
+ 
+preliminary
+ 
+info
+ 
+needed
+ 
+to
+ 
+detect
+ 
+it
+ 
+is
+ 
+present
+ 
+-No
+ 
+:
+ 
+If
+ 
+not
+ 
+detected
+ 
+and
+ 
+all
+ 
+preliminary
+ 
+info
+ 
+needed
+ 
+to
+ 
+detect
+ 
+it
+ 
+is
+ 
+present
+ 
+-Data
+ 
+Insufficient
+ 
+:all
+ 
+preliminary
+ 
+info
+ 
+needed
+ 
+to
+ 
+detect
+ 
+it
+ 
+is
+ 
+not
+ 
+present
+ 9.  The  excel  is  generated  within  60  minute s  in  the  exact  order  of  sheets  as  aligned  in https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account  10.  All  values  populated  to  be  in  Rupees.  The  MCA  data  will  be  in  Cr  and  is  
+populated
+ 
+as
+ 
+“0.3”,
+ 
+this
+ 
+needs
+ 
+to
+ 
+be
+ 
+displayed
+ 
+as
+ 
+“30,00,000”
+ 
+in
+ 
+excel
+ 
+(Only
+ 
+for
+ 
+triangulation
+ 
+sheet).
+ 
+Rest
+ 
+of
+ 
+the
+ 
+sheets
+ 
+we
+ 
+mention
+ 
+that
+ 
+the
+ 
+value
+ 
+is
+ 
+in
+ 
+crores
+ 
+and
+ 
+print
+ 
+value
+ 
+as
+ 
+it
+ 
+is.
+ 11.  In  case  any  value  or  data  is  unavailable  to  compute  a  risk  signal  entirely  (In  
+ratios,
+ 
+parameters)
+ 
+it
+ 
+should
+ 
+be
+ 
+treated
+ 
+as
+ 
+N/A
+ 
+instead
+ 
+of
+ 
+0.
+ 
+The
+ 
+risk
+ 
+signal
+ 
+status
+ 
+should
+ 
+be
+ 
+“Data
+ 
+Insufficient”
+ 12.  -Labour  Stats  -  This  is  EPFO  Filing  data  which  is  currently  unavailable  from  
+EPFO,
+ 
+so
+ 
+this
+ 
+sheet
+ 
+will
+ 
+not
+ 
+be
+ 
+populated
+ 
+in
+ 
+V1
+ 
+scope.
+ 
+All
+ 
+EPFO
+ 
+related
+ 
+data
+ 
+in
+ 
+any
+ 
+sheets
+ 
+will
+ 
+not
+ 
+be
+ 
+populated
+ 
+in
+ 
+V1
+ 
+scope
+ 
+and
+ 
+if
+ 
+utilised
+ 
+in
+ 
+Risk
+ 
+Signals
+ 
+sheet
+ 
+will
+ 
+show
+ 
+the
+ 
+status
+ 
+as
+ 
+'Data
+ 
+Insufficient”
+ 
+13.  If  any  document  provided  is  not  of  the  same  period  as  of  Bank  Statement,  a  note  
+needs
+ 
+to
+ 
+be
+ 
+provided
+ 
+in
+ 
+the
+ 
+ITR
+ 
+and
+ 
+MCA
+ 
+analysis
+ 
+sheet
+ 
+stating
+ 
+the
+ 
+same.
+ 
+As
+ referenced  in https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account  14.  If  all  documents/credentials  related  to  the  selected  triangulation  check  are  not  
+provided
+ 
+and
+ 
+error
+ 
+message
+ 
+mentioning
+ 
+the
+ 
+missed
+ 
+out
+ 
+details
+ 
+should
+ 
+be
+ 
+added.
+ 15.  The  current  V1  scope  will  only  have  the  sheets  mentioned  in https://docs.google.com/spreadsheets/d/1qB0WqMj3YOCWWaD9yrk5UkeGJYvYcHHULq0U9czZXx4/edit?gid=1658835350#gid=1658835350Connect  your  Google  account .  16.  Bank  statement  analysis  as  an  option  cannot  be  deselected  from  UX,  it’s  a  
+part
+ 
+of
+ 
+all
+ 
+triangulations
+ 
+ 
+ 
+11.  Assumptions  
+●  Borrowers  submit  original,  unmodified  documents  directly  from  government  
+portals
+ 
+ ●  GST  details  fetched  by  the  vendor  are  of  current  updated  data  across  all  eligible  
+forms
+ 
+to
+ 
+be
+ 
+filed
+ 
+by
+ 
+the
+ 
+business.
+ 
+If
+ 
+GST
+ 
+data
+ 
+is
+ 
+unavailable,
+ 
+we
+ 
+assume
+ 
+business
+ 
+has
+ 
+not
+ 
+filed
+ 
+it.
+ ●  If  MCA  data  is  unavailable,  we  assume  business  has  not  filed  its  financial  
+statements
+ ●  Bank  statements  are  provided  for  the  primary  operating  account  —  multiple  
+undisclosed
+ 
+accounts
+ 
+remain
+ 
+a
+ 
+residual
+ 
+risk
+ ●  All  monetary  amounts  are  in  INR  —  foreign-currency  entities  require  additional  
+configuration,
+ 
+which
+ 
+is
+ 
+not
+ 
+in
+ 
+scope
+ 
+currently.
+ 
+12.  Testing  Layers  
+●  Unit  Tests  —  individual  parser  and  extraction  functions  for  ITR,  GST,  MCA,  BSA  
+fields
+ ●  Integration  Tests  —  end-to-end  data  flow  from  document  ingestion  →  storage  →  
+AI
+ 
+inference
+ 
+→
+ 
+CAM
+ 
+generation
+ ●  Signal  Accuracy  Tests  —  validation  that  each  of  the  54  risk  checks  fires  on  the  
+correct
+ 
+inputs
+ 
+and
+ 
+stays
+ 
+silent
+ 
+on
+ 
+clean
+ 
+inputs
+ ●  Triangulation  Tests  —  cross-source  deviation  calculations  for  all  document  pairs  ●  UI  /  UX  Tests  —  case  creation,  upload,  dashboard,  CAM  viewer,  export  flows  ●  Performance  Tests  —  latency,  throughput,  and  concurrency  under  load  
+●  Regression  Tests  —  full  suite  run  before  every  release  candidate  
+ 
+13.  Input  required  and  validations  
+ 
+Service  Input  Validations  
+Input  screen  1.Company  Name  2.CIN  3.PAN  4.Triangulation  selection  (Dynamic)  
+1.   Text  value  2.  Exactly  21  characters  3.  Exactly  10  characters  ;  Exactly  10  characters.  Pattern:  [A-Z]{5}[0-9]{4}[A-Z]{1} .  Must  be  uppercase.  Example:  AAFCG5401M .  Throw  error  if  checksum  fails  basic  structural  check.  4.  Bank  statement  selection  to  be  kept  as  default,  rest  can  be  selected  and  deselected.  
+ITR  1.PDF  Upload  2.Credentials  
+1.Max  size  50MB  (all  uploaded  PDF’s)  
+ 2.All  mandatory  credentials  to  be  added  (mentioned  in  design  with  *)  
+GST  1.   Credentials  2.  JSON  
+1.All  mandatory  credentials  to  be  added  (mentioned  in  design  with  *)  
+2.JSON  will  be  uploaded  for  each  form  type  mentioned  in  UX  
+Bank  Statements  Bank  statement  PDF  upload  
+1.   Max  size  50MB  (all  uploaded  PDF’s)  2.  Pre-selected  analysis  type  will  be  current  3.  Multiple  file  upload  supported.  
+MCA  CIN  already  taken  as  input  in  first  screen  
+-  
+14.  Product  Roadmap  
+Phase  Timeline  Key  Deliverables  
+v1.0  April  2nd  week  -Launch  
+ITR  +  GST  +  MCA  +  BSA  ingestion;  52  risk  signals;  structured  CAM  output;  Excel   export;  manual  document  upload  -OneRisk  Design  with  case  creation  and  download  excel  option   April  3rd  week-  Full  fledged  analysis  on  OneRisk  case   Q1  2026   -Financial  Statement  Analysis  -Credit  Bureau  Analysis  -  Back  office  integration   
+v1.5  Q2  2026  Sector-specific  risk  models  (manufacturing,  NBFC,  MSME);  configurable  signal  weights;  portfolio-level  analytics;  LOS  API  connector  
+v2.0  Q3  2026  Predictive  default  probability  model  trained  on  historical  case  outcomes;  peer  comparison  at  sub-sector  level;  automated  pre-condition  checklist  generation  and  tracking  
+  
+ 
+--- src/assets/PRD's/Tringulation.pdf ---
+Flow  Diagram  
+
+Input  Collection  
+Design: 
+https://www.ﬁgma.com/design/238OWAFleD2ms7tEckIZha/OneRisk-Portal?node-id=1
+1710-21573&t=jx6H3UrelQPMohRq-4Connect  your  Figma  account  
+Bank  Statement  -  Mandatory  
+Select  Account  type:  
+●  Current  ●  Saving  
+Followed  by  Bank  Statements  
+Users  can  upload  one  or  multiple  bank  statement  PDFs,  with  a  total  size  limit  of  50MB.  
+Display  error  message  if  the  upload  size  exceeds  50MB  
+ 
+MCA  
+CIN  is  mandatory  if  the  user  wants  MCA  triangulation  
+Users  can  search  by  name  or  enter  the  CIN  directly  
+Clicking  search  populates  basic  details  to  conﬁrm  the  correct  entity  before  initiating  the  
+case
+ 
+ 
+ITR  
+PAN  is  mandetory  
+
+ 
+
+Note:  
+A  bank  statement  is  mandatory,  accompanied  by  an  ITR,  MCA,  or  both  
+Output  
+Download  button  -  downloading  excel  
+Summary  
+Total  Risk  Factors  checked  54  
+Flagged  Risks  21  
+Segment  Speciﬁc  (Risk  Group  wise  coverage)  
+Segment  Risk  ﬂag  triggered  %  of  ﬂags  triggered  
+Integrity  8/17  32%  
+Compliance  0/5  0%  
+Credit  Behaviour  3/4  75%  
+Business  Risk  10/18  50%  
+Rationals  
+Rationals  for  identiﬁed  triggers  has  to  be  displayed.  Rationals  should  be  grouped  by  
+check
+ 
+type
+ 
+with
+ 
+source
+ 
+document
+ 
+tags
+ 
+#  Triggers  Description  Rational  Source  
+Docum
+ent  
+Identif
+ied  
+Type  
+of  
+Check  
+1  Documen
+t  
+Tamperin
+g  
+Tampering  of  
+bank  statements  
+Evidence  
+suggests  the  
+bank  statement  
+has  been  
+modiﬁed  or  
+altered.  
+Bank  
+Statem
+ent  
+No  Integrit
+y  
+2  Balance  
+Manipulat
+ion  
+High  value  credit  
+transactions  
+detected  and  
+then  debited  
+within  0-2  
+Rapid  
+movement  of  
+high-value  
+funds  indicates  
+artiﬁcial  
+Bank  
+Statem
+ent  
+No  Integrit
+y  
+window.  Depicts  
+pass  through  
+account  
+behaviour.  
+turnover  
+inﬂation.  
+3  Suspiciou
+s  Cash  
+Transacti
+ons  
+cash  credit  
+transactions  on  
+the  same  day  
+collectively  
+exceeds  ₹ 50000  
+Daily  cash  
+deposits  
+exceeding  
+₹ 500,000  
+suggest  
+irregular  
+banking  activity.  
+Bank  
+Statem
+ent  
+No  Integrit
+y  
+4  Suspiciou
+s  Digital  
+Transacti
+ons  
+Out-of-limit  
+digital  
+transaction  
+activity  
+Digital  
+transaction  
+volumes  exceed  
+standard  or  
+authorized  
+limits.  
+Bank  
+Statem
+ent  
+No  Integrit
+y  
+6  Irregular  
+EMI  
+Transacti
+ons  
+Detects  EMI  
+payments  that  
+don't  occur  on  
+the  same  date  
+each  month.  
+Loan  
+repayments  are  
+occurring  on  
+inconsistent  
+dates  each  
+month.  
+Bank  
+Statem
+ent  
+Yes  Credit  
+Behavi
+our  
+7  EMI  
+Bounce  
+Flags  bounce  
+transactions  
+related  to  EMI  
+obligations  
+Failure  to  
+maintain  
+suﬃcient  funds  
+for  scheduled  
+loan  
+obligations.  
+Bank  
+Statem
+ent  
+No  Credit  
+Behavi
+our  
+8  Inward  
+Cheque  
+Bounce  
+Detects  inward  
+cheque  bounces  
+in  the  statement.  
+Payments  
+received  from  
+third  parties  are  
+being  rejected  
+by  their  banks.  
+Bank  
+Statem
+ent  
+Yes  Credit  
+Behavi
+our  
+9  Outward  
+Cheque  
+Bounce  
+Detects  outward  
+cheque  bounces  
+in  the  statement  
+Issued  
+payments  are  
+failing  due  to  
+insuﬃcient  
+account  
+balance.  
+Bank  
+Statem
+ent  
+Yes  Credit  
+Behavi
+our  
+10  Bank  
+Statemen
+t  
+Inconsiste
+ncies  
+Balance  
+reconciliation  
+fails  at  >2  
+transactions  
+Transaction  
+totals  do  not  
+align  with  the  
+reported  
+closing  
+balances.  
+Bank  
+Statem
+ent  
+No  Integrit
+y  
+11  Legal  
+Name  
+Mismatch  
+ITR/MCA  legal  
+name  ≠  bank  
+account  holder  
+name  
+The  account  
+holder's  name  
+diﬀers  from  
+oﬃcial  tax  and  
+corporate  
+records.  
+Bank  
+Statem
+ent  +  
+GST  
+No  Integrit
+y  
+12  Negative  
+balance  
+detected  
+Indicates  if  
+negative  balance  
+was  detected  
+throughout  the  
+statement  period  
+The  account  
+balance  
+dropped  below  
+zero  during  the  
+statement  
+period.  
+Bank  
+Statem
+ent  
+Yes  Accou
+nt  
+condu
+ct  
+13  Address  
+Mismatch  
+Alert  
+GST  address  vs  
+bank  account  
+address  
+discrepancy  
+The  registered  
+business  
+address  diﬀers  
+between  tax  
+and  banking  
+documents.  
+Bank  
+Statem
+ent  +  
+GST  
+No  Compli
+ance  
+14  Insider  
+Transacti
+on  Alert  
+Fund  transfers  to  
+promoter-linked  
+accounts  
+detected  
+Funds  are  being  
+transferred  to  
+accounts  linked  
+to  company  
+promoters.  
+Bank  
+Statem
+ent  +  
+ITR/MC
+A  
+No  Integrit
+y  
+15  Vendor  
+Overlap  
+Alert  
+Top  supplier  also  
+appears  as  top  
+buyer  (circular  
+sales)  
+A  single  entity  
+acting  as  both  
+supplier  and  
+buyer  suggests  
+circular  trading.  
+GST  +  
+Bank  
+Statem
+ent  
+Yes  Integrit
+y  
+16  Address  
+mismatch  
+alert  
+Identiﬁes  
+discrepancies  
+between  
+gst-registered  
+business  names  
+and  bank  
+account  names,  
+signaling  
+potential  fraud  
+Discrepancies  
+exist  between  
+GST-registered  
+names  and  
+bank  account  
+names.  
+Bank  
+Statem
+ent+GS
+T  
+Triangul
+ation  
+No  Compli
+ance  
+17  Related  
+Party  
+Transacti
+ons  
+RP  transactions  
+in  Bank  
+Statement  not  
+declared  in  ITR  
+schedule  under  
+borrowings  
+Transactions  
+with  related  
+parties  were  not  
+disclosed  in  tax  
+schedules.  
+ITR  +  
+Bank  
+Statem
+ent  
+Yes  Integrit
+y  
+18  Undisclos
+ed  Capital  
+Inﬂows  
+Non-trade  Bank  
+Statement  
+credits  not  
+reconcilable  to  
+any  source  
+declared  in  ITR  
+(Directors/Promo
+ters)  
+Credits  from  
+promoters  or  
+directors  
+cannot  be  
+reconciled  with  
+tax  ﬁlings.  
+ITR  +  
+Bank  
+Statem
+ent  
+No  Integrit
+y  
+19  Missing  
+Auditor  
+Fee  
+No  Bank  
+Statement  debit  
+matching  
+declared  audit  
+fee  amount  
+No  evidence  of  
+payment  for  
+professional  
+audit  services  
+was  found.  
+ITR  +  
+Bank  
+Statem
+ent  
+Yes  Integrit
+y  
+20  Sales  
+Reversal  
+More  than  5%  in  
+value  of  invoice  
+reversing  notes  
+generated  in  
+period  
+A  high  rate  of  
+invoice  
+cancellations  
+suggests  
+potential  
+revenue  
+inﬂation.  
+Bank  
+Statem
+ent  
+No  Busine
+ss  
+Risk  
+21  Revenue  
+Reconcili
+ation  Gap  
+Revenue  
+(declared  or  
+estimated)  in  1  
+or  more  
+documents  
+deviating  by  
+more  than  20%  
+Reported  
+revenue  ﬁgures  
+vary  
+signiﬁcantly  
+across  diﬀerent  
+ﬁnancial  
+documents.  
+Bank  
+Statem
+ent  
+Triangul
+ation  
+Yes  Busine
+ss  
+Risk  
+22  Payroll  
+Expense  
+Gaps  
+No  neft/rtgs  
+salary  credits  to  
+employees  
+found  in  banking  
+while  there  are  
+declared  head  
+counts;  risk  of  
+running  with  
+temporary  staﬀ  
+Lack  of  digital  
+salary  
+payments  
+suggests  
+potential  use  of  
+undeclared  
+labor.  
+ITR+Ba
+nk  
+Statem
+ent  
+Triangul
+ation  
+Yes  Busine
+ss  
+Risk  
+23  Informal  
+Borrowin
+gs  
+EMI  like  outﬂows  
+detected  
+towards  
+non-ﬁnancial  
+Regular  
+payments  to  
+non-ﬁnancial  
+entities  indicate  
+ITR+Ba
+nk  
+Statem
+ent  
+Yes  Busine
+ss  
+Risk  
+institutions  for  2  
+or  more  months;  
+risk  of  
+undeclared  
+liabilities  
+undisclosed  
+debt.  
+Triangul
+ation  
+24  Director  
+Exits  
+>  30%  director  
+churn  in  last  12  
+months  
+High  leadership  
+turnover  
+suggests  
+potential  
+internal  
+instability.  
+MCA  Yes  Integrit
+y  
+25  B2C  
+Sales  
+Anomaly  
+Unregistered  
+sales  spike  for  
+pure  B2B  entity  
+Unexpected  
+retail  sales  
+spikes  for  a  
+strictly  
+wholesale  or  
+B2B  entity.  
+ITR+Ba
+nk  
+Statem
+ent  
+Triangul
+ation  
+No  Busine
+ss  
+Risk  
+26  RCM  
+Liability  
+Surge  
+Reverse  charge  
+on  imports  
+growing  >  100%  
+in  4  months  
+Unusually  rapid  
+growth  in  tax  
+liabilities  for  
+imported  goods  
+or  services.  
+MCA  
+Fillings  
+Yes  Busine
+ss  
+Risk  
+27  Account  
+Dormanc
+y  
+Account  inactive  
+>  30%  of  
+statement  period  
+The  account  
+remained  
+inactive  for  a  
+signiﬁcant  
+portion  of  the  
+period.  
+MCA  
+Fillings  
+No  Busine
+ss  
+Risk  
+28  Non-com
+pliant  
+Director(s)  
+Check  if  
+director(s)  DIN  is  
+active  and  
+compliant.  no  
+disqualiﬁcation  
+under  section  
+164  of  the  
+companies  act,  
+Company  
+directors  are  
+disqualiﬁed  or  
+lack  active  legal  
+status.  
+MCA  
+Fillings  
+No  Compli
+ance  
+2013.  director  is  
+legally  traceable.  
+29  Utility  
+Expense  
+Missing  
+Utility  expenses  
+(electricity/fuel)  
+missing  in  
+banking  
+transaction  or  
+signiﬁcanlty  
+lower  than  
+declared  in  ITR  
+(50%  or  more)  
+Essential  
+operational  
+costs  like  
+power  and  fuel  
+are  absent  or  
+suspiciously  
+low.  
+MCA  
+Fillings  
+No  Busine
+ss  
+Risk  
+30  Subpar  
+Revenue  
+growth  
+Revenue  growth  
+of  company  
+lower  than  5%  
+or  more  than  
+benchmark  for  
+the  industry  
+Financial  
+performance  is  
+signiﬁcantly  
+below  industry  
+benchmarks.  
+MCA  
+Fillings  
+No  Busine
+ss  
+Risk  
+31  Unexpect
+ed  Late  
+Inﬂux  
+Large  
+unexplained  
+credit  in  last  15  
+days  of  
+statement  
+Large,  
+unexplained  
+credits  
+appeared  at  the  
+very  end  of  the  
+statement  
+period.  
+Bank  
+Statem
+ent  
+Yes  Accou
+nt  
+condu
+ct  
+32  Web  
+Presence  
+Authentici
+ty  
+Website  non  
+compliant  with  
+declared  MCC  
+The  business  
+website  content  
+does  not  match  
+its  registered  
+industry  code.  
+Web  
+Scan  
+    
+ 
